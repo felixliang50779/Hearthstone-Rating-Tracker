@@ -11,6 +11,13 @@ TrackPlayerTable = {};
 let pagenum=1;
 let pageData;
 let url;
+const date = new Date();
+const utcOffset = -4; // Adjust based on daylight saving time
+
+date.setHours(date.getHours() + utcOffset);
+
+
+
 fetchLoop().then(() => console.log(TrackPlayerTable));
 
 
@@ -42,7 +49,7 @@ async function fetchLoop(){
                     TrackPlayerTable[playerData.accountid] = [];
                 }
 
-                TrackPlayerTable[playerData.accountid].push([playerRating,"8/16/2023 9:00 pm"]);
+                TrackPlayerTable[playerData.accountid].push([playerRating,date]);
             }
         }
     }
