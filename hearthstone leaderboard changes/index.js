@@ -63,4 +63,3 @@ setInterval(async () => {
     await fetchLoop();
     console.log(TrackPlayerTable);
 }, 15*60*1000);
-//fetchLoop().then(() => console.log(TrackPlayerTable));
