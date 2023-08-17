@@ -3,7 +3,7 @@ const express = require("express");
 
 // Global variables
 const TrackPlayerTable = {};
-const TrackedPlayers = ['dog', 'Lii', 'LoadedSack', 'jeef', 'BeterBabbit', 'Bofur', 'MATSURI', 'awedragon', 'jkirek'];
+const TrackedPlayers = ['dog', 'Lii', 'jeef', 'BeterBabbit', 'Bofur', 'MATSURI', 'awedragon', 'jkirek'];
 
 async function fetchLoop() {
     const date = new Date();
