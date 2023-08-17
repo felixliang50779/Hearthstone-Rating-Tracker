@@ -1,52 +1,53 @@
-
-const PORT = 5000;
 const axios = require("axios");
 const express = require("express");
-const app = express();
 
-let html_data;
-TrackedPlayers = [ 'dog', 'Lii', 'SBR', 'jeef', 'BeterBabbit', 'Bofur', 'MATSURI', 'awedragon', 'jkirek'];
-TrackPlayerTable = {};
-let pagenum=1;
-let pageData;
-let url;
+// Global data
+const TrackedPlayers = ['dog', 'Lii', 'SBR', 'jeef', 'BeterBabbit', 'Bofur', 'MATSURI', 'awedragon', 'jkirek'];
+const TrackPlayerTable = {};
 const date = new Date();
-const utcOffset = -4; // Adjust based on daylight saving time
+let url;
 
-date.setHours(date.getHours() + utcOffset);
-
-fetchLoop().then(() => console.log(TrackPlayerTable));
-
-app.get("/",(req,res)=>res.send(TrackPlayerTable));
-
-app.listen(PORT, () =>
-  console.log(`The server is active and running on port ${PORT}`)
-);
-
-async function fetchLoop(){
-    const requests = [];
+async function fetchLoop() {
+    const pageRequests = [];
     for (let i = 1; i < 11; i++) {
-        pagenum = i;
-        url = `https://hearthstone.blizzard.com/en-us/api/community/leaderboardsData?region=US&leaderboardId=battlegrounds&page=${pagenum}`;
+        url = `https://hearthstone.blizzard.com/en-us/api/community/leaderboardsData?region=US&leaderboardId=battlegrounds&page=${i}`;
         
-        requests.push(axios.get(url));
+        pageRequests.push(axios.get(url));
     }
-    const responses = await Promise.all(requests);
-    for (const response of responses) {
-        html_data = response.data;
-        pageData = html_data.leaderboard.rows;
-        let playerRating;
+
+    const pages = await Promise.all(pageRequests);
+
+    for (const page of pages) {
+        const pageData = page.data.leaderboard.rows;
+
         for (const playerData of pageData) {
             if (TrackedPlayers.includes(playerData.accountid)) {
-                playerRating = playerData.rating;
-
                 if (!TrackPlayerTable[playerData.accountid]) {
                     TrackPlayerTable[playerData.accountid] = [];
                 }
-
-                TrackPlayerTable[playerData.accountid].push([playerRating,date]);
+                TrackPlayerTable[playerData.accountid].push([playerData.rating,
+                    `${date.getMonth() + 1}-${date.getDate()}-${date.getFullYear()}, ${date.toTimeString().slice(0, 8)}`]);
             }
         }
     }
 }
+
+function initializeServer() {
+    const PORT = 5000;
+    const app = express();
+
+    app.get("/", (req,res)=>res.send(TrackPlayerTable));
+
+    app.listen(PORT, () =>
+        console.log(`The server is active and running on port ${PORT}`)
+    );
+}
+
+// Initialize the Express server
+initializeServer();
+
+// Next step is to automate this call at regular intervals
+fetchLoop().then(() => console.log(TrackPlayerTable));
+
+
 
