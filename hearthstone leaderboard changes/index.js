@@ -1,16 +1,16 @@
 const axios = require("axios");
 const express = require("express");
 
-// Global data
-const TrackedPlayers = ['dog', 'Lii', 'SBR', 'jeef', 'BeterBabbit', 'Bofur', 'MATSURI', 'awedragon', 'jkirek'];
+// Global variables
 const TrackPlayerTable = {};
-const date = new Date();
-let url;
+const TrackedPlayers = ['dog', 'Lii', 'LoadedSack', 'jeef', 'BeterBabbit', 'Bofur', 'MATSURI', 'awedragon', 'jkirek'];
 
 async function fetchLoop() {
+    const date = new Date();
     const pageRequests = [];
+
     for (let i = 1; i < 11; i++) {
-        url = `https://hearthstone.blizzard.com/en-us/api/community/leaderboardsData?region=US&leaderboardId=battlegrounds&page=${i}`;
+        const url = `https://hearthstone.blizzard.com/en-us/api/community/leaderboardsData?region=US&leaderboardId=battlegrounds&page=${i}`;
         
         pageRequests.push(axios.get(url));
     }
