@@ -1,9 +1,10 @@
 const axios = require("axios");
 const express = require("express");
-
+const serverless = require('serverless-http');
 // Global variables
 const TrackPlayerTable = {};
 const TrackedPlayers = ['dog', 'Lii', 'jeef', 'BeterBabbit', 'Bofur', 'MATSURI', 'awedragon', 'jkirek'];
+let app;
 
 async function fetchLoop() {
     const date = new Date();
@@ -39,7 +40,7 @@ async function fetchLoop() {
 
 function initializeServer() {
     const PORT = process.env.PORT || 5000;
-    const app = express();
+    app = express();
 
     app.get("/", (req, res) => res.send(TrackPlayerTable));
 
@@ -63,3 +64,5 @@ setInterval(async () => {
     await fetchLoop();
     console.log(TrackPlayerTable);
 }, 15*60*1000);
+
+exports.handler = serverless(app);
