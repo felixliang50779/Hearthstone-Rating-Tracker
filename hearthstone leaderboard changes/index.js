@@ -9,7 +9,7 @@ async function fetchLoop() {
     const date = new Date();
     const pageRequests = [];
 
-    for (let i = 1; i < 11; i++) {
+    for (let i = 1; i < 9; i++) {
         const url = `https://hearthstone.blizzard.com/en-us/api/community/leaderboardsData?region=US&leaderboardId=battlegrounds&page=${i}`;
         
         pageRequests.push(axios.get(url));
@@ -25,8 +25,13 @@ async function fetchLoop() {
                 if (!TrackPlayerTable[playerData.accountid]) {
                     TrackPlayerTable[playerData.accountid] = [];
                 }
-                TrackPlayerTable[playerData.accountid].push([playerData.rating,
+
+                let playerList = TrackPlayerTable[playerData.accountid];
+                if ((!playerList.length || 
+                    playerList[playerList.length-1][0] !== playerData.rating)) {
+                    playerList.push([playerData.rating,
                     `${date.getMonth() + 1}-${date.getDate()}-${date.getFullYear()}, ${date.toTimeString().slice(0, 8)}`]);
+                }
             }
         }
     }
@@ -47,4 +52,8 @@ function initializeServer() {
 initializeServer();
 
 // Next step is to automate this call at regular intervals
-fetchLoop().then(() => console.log(TrackPlayerTable));
+setInterval(async () => {
+    await fetchLoop();
+    console.log(TrackPlayerTable);
+}, 15*60*1000);
+//fetchLoop().then(() => console.log(TrackPlayerTable));
