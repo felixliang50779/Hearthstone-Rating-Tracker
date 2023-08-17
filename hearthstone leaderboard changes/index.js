@@ -51,6 +51,13 @@ function initializeServer() {
 // Initialize the Express server
 initializeServer();
 
+async function initial() {
+    await fetchLoop();
+    console.log(TrackPlayerTable);
+}
+
+initial();
+
 // Next step is to automate this call at regular intervals
 setInterval(async () => {
     await fetchLoop();
