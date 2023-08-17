@@ -33,10 +33,10 @@ async function fetchLoop() {
 }
 
 function initializeServer() {
-    const PORT = 5000;
+    const PORT = process.env.PORT || 5000;
     const app = express();
 
-    app.get("/", (req,res)=>res.send(TrackPlayerTable));
+    app.get("/", (req, res) => res.send(TrackPlayerTable));
 
     app.listen(PORT, () =>
         console.log(`The server is active and running on port ${PORT}`)
@@ -48,6 +48,3 @@ initializeServer();
 
 // Next step is to automate this call at regular intervals
 fetchLoop().then(() => console.log(TrackPlayerTable));
-
-
-
