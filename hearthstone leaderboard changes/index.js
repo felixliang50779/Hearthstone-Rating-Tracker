@@ -1,10 +1,9 @@
 
 const PORT = 5000;
 const axios = require("axios");
-const cheerio = require("cheerio");
 const express = require("express");
-const nodemon = require("nodemon");
 const app = express();
+
 let html_data;
 TrackedPlayers = [ 'dog', 'Lii', 'SBR', 'jeef', 'BeterBabbit', 'Bofur', 'MATSURI', 'awedragon', 'jkirek'];
 TrackPlayerTable = {};
@@ -16,13 +15,9 @@ const utcOffset = -4; // Adjust based on daylight saving time
 
 date.setHours(date.getHours() + utcOffset);
 
-
-
 fetchLoop().then(() => console.log(TrackPlayerTable));
 
-
 app.get("/",(req,res)=>res.send(TrackPlayerTable));
-
 
 app.listen(PORT, () =>
   console.log(`The server is active and running on port ${PORT}`)
