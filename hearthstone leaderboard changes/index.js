@@ -4,6 +4,7 @@ const express = require("express");
 // Global variables
 const TrackPlayerTable = {};
 const TrackedPlayers = ['dog', 'Lii', 'jeef', 'BeterBabbit', 'Bofur', 'MATSURI', 'awedragon', 'jkirek'];
+let app;
 
 async function fetchLoop() {
     const date = new Date();
@@ -39,7 +40,7 @@ async function fetchLoop() {
 
 function initializeServer() {
     const PORT = process.env.PORT || 5000;
-    const app = express();
+    app = express();
 
     app.get("/", (req, res) => res.send(TrackPlayerTable));
 
@@ -59,6 +60,6 @@ async function initial() {
 initial();
 
 // Next step is to automate this call at regular intervals
-setInterval(async () => {
-    await initial();
-}, 15*60*1);
+// setInterval(async () => {
+//     await initial();
+// }, 15*60*1000);
