@@ -7,7 +7,8 @@ const TrackedPlayers = ['dog', 'Lii', 'jeef', 'BeterBabbit', 'Bofur', 'MATSURI',
 let app;
 
 async function fetchLoop() {
-    const date = new Date();
+    let date = new Date();
+    date = date.toLocaleString("en-US", {timeZone: "America/New_York"});
     const pageRequests = [];
 
     for (let i = 1; i < 9; i++) {
@@ -30,8 +31,8 @@ async function fetchLoop() {
                 let playerList = TrackPlayerTable[playerData.accountid];
                 if ((!playerList.length || 
                     playerList[playerList.length-1][0] !== playerData.rating)) {
-                    playerList.push([playerData.rating,
-                    `${date.getMonth() + 1}-${date.getDate()}-${date.getFullYear()}, ${date.toTimeString().slice(0, 8)}`]);
+                    playerList.push([playerData.rank, playerData.rating,
+                    `${date}`]);
                 }
             }
         }
@@ -42,7 +43,11 @@ function initializeServer() {
     const PORT = process.env.PORT || 5000;
     app = express();
 
-    app.get("/", (req, res) => res.send(TrackPlayerTable));
+    app.get("/", (req, res) => {
+        res.setHeader('Access-Control-Allow-Credentials', true);
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.send(TrackPlayerTable)
+    });
 
     app.listen(PORT, () =>
         console.log(`The server is active and running on port ${PORT}`)

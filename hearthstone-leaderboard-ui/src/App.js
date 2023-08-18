@@ -1,23 +1,24 @@
-import logo from './logo.svg';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 import './App.css';
 
 function App() {
+  const [fetchResult, setFetchResult] = useState(null);
+
+  useEffect(() => {
+   axios.get(
+    "https://leaderboard-tracking-express.vercel.app/").then(
+      result => setFetchResult(result));
+    console.log('executed fetch!');
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+        {!fetchResult ? "Loading" : `Rank: ${fetchResult.data.jeef[0][0]}`}
+        <br />
+        {fetchResult && `ELO: ${fetchResult.data.jeef[0][1]}`}
+        <br />
+        {fetchResult && `Time: ${fetchResult.data.jeef[0][2]}`}
     </div>
   );
 }
