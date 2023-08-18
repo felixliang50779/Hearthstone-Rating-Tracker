@@ -60,6 +60,5 @@ initial();
 
 // Next step is to automate this call at regular intervals
 setInterval(async () => {
-    await fetchLoop();
-    console.log(TrackPlayerTable);
-}, 15*60*1000);
+    await initial();
+}, 15*60*1);
