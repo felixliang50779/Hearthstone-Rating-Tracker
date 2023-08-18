@@ -64,7 +64,7 @@ async function initial() {
 
 initial();
 
-// Next step is to automate this call at regular intervals
+//Next step is to automate this call at regular intervals
 // setInterval(async () => {
 //     await initial();
 // }, 15*60*1000);

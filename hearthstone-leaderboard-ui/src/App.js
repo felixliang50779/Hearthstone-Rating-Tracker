@@ -19,6 +19,7 @@ function App() {
         {fetchResult && `ELO: ${fetchResult.data.jeef[0][1]}`}
         <br />
         {fetchResult && `Time: ${fetchResult.data.jeef[0][2]}`}
+        
     </div>
   );
 }
