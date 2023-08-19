@@ -54,12 +54,12 @@ function initializeServer() {
     );
 }
 
-// Initialize the Express server
-initializeServer();
-
 async function initial() {
     await fetchLoop();
     console.log(TrackPlayerTable);
+    
+    // Initialize the Express server
+    initializeServer();
 }
 
 initial();
