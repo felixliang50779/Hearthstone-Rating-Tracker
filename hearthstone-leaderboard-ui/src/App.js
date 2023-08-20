@@ -7,7 +7,7 @@ function App() {
 
   useEffect(() => {
    axios.get(
-    "https://leaderboard-tracking-express.vercel.app/").then(
+    "http://localhost:5000/").then(
       result => setFetchResult(result));
     console.log('executed fetch!');
   }, []);

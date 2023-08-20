@@ -1,12 +1,14 @@
 const axios = require("axios");
 const express = require("express");
+const cors = require("cors");
 
 // Global variables
 const TrackPlayerTable = {};
-const TrackedPlayers = ['dog', 'Lii', 'jeef', 'BeterBabbit', 'Bofur', 'MATSURI', 'awedragon', 'jkirek'];
 let app;
 
 async function fetchLoop() {
+    const TrackedPlayers = ['dog', 'Lii', 'jeef', 'BeterBabbit', 'Bofur', 'MATSURI', 'awedragon', 'jkirek'];
+
     let date = new Date();
     date = date.toLocaleString("en-US", {timeZone: "America/New_York"});
     const pageRequests = [];
@@ -43,9 +45,9 @@ function initializeServer() {
     const PORT = process.env.PORT || 5000;
     app = express();
 
+    app.use(cors());
+
     app.get("/", (req, res) => {
-        res.setHeader('Access-Control-Allow-Credentials', true);
-        res.setHeader('Access-Control-Allow-Origin', '*');
         res.send(TrackPlayerTable)
     });
 
