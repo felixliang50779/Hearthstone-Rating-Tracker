@@ -4,7 +4,21 @@ import './App.css';
 
 function App() {
   const [fetchResult, setFetchResult] = useState(null);
-
+  function DisplayResult({ fetchResult }) {
+    if (!fetchResult) {
+      return <p>Loading</p>;  
+    } else {
+      return (
+        <div>
+          <p>Rank: {fetchResult.data.jeef[0][0]}</p>
+          <br />
+          <p>ELO: {fetchResult.data.jeef[0][1]}</p>
+          <br />
+          <p>Time: {fetchResult.data.jeef[0][2]}</p>
+        </div>
+      );
+    }
+  }
   useEffect(() => {
    axios.get(
     "https://leaderboard-tracking-express.vercel.app/").then(
@@ -14,12 +28,7 @@ function App() {
 
   return (
     <div>
-        {!fetchResult ? "Loading" : `Rank: ${fetchResult.data.jeef[0][0]}`}
-        <br />
-        {fetchResult && `ELO: ${fetchResult.data.jeef[0][1]}`}
-        <br />
-        {fetchResult && `Time: ${fetchResult.data.jeef[0][2]}`}
-        
+      <DisplayResult fetchResult={fetchResult} />
     </div>
   );
 }
