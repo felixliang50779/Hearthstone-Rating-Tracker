@@ -10,11 +10,11 @@ function App() {
     } else {
       return (
         <div>
-          <p>Rank: {fetchResult.data.jeef[0][0]}</p>
+          <p>Rank: {fetchResult.data.jeef.at(-1).rank}</p>
           <br />
-          <p>ELO: {fetchResult.data.jeef[0][1]}</p>
+          <p>Rating: {fetchResult.data.jeef.at(-1).rating}</p>
           <br />
-          <p>Time: {fetchResult.data.jeef[0][2]}</p>
+          <p>Time: {fetchResult.data.jeef.at(-1).timeStamp}</p>
         </div>
       );
     }

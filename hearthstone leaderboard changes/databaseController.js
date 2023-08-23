@@ -1,14 +1,25 @@
 import { MongoClient } from 'mongodb';
 
+const errorMsg = "Error occurred while attempting to";
+
 class DatabaseController {
     constructor(url, database) {
         this.client = new MongoClient(url);
         this.database = this.client.db(database);
     }
 
+    async startClient() {
+        try {
+            await this.client.connect();
+        }
+        catch (error) {
+            console.log(`${errorMsg} connect: ${error}`);
+        }
+    }
+
     async shutdownClient() {
         try {
-            this.client.close();
+            await this.client.close();
         }
         catch (error) {
             console.log(`${errorMsg} disconnect: ${error}`);

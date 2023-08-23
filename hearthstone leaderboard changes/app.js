@@ -19,9 +19,12 @@ function initializeServer() {
     app.use(cors());
 
     app.get("/", async (req, res) => {
+        await dbController.startClient();
+
         const TrackedPlayersDocument = await dbController.getDocument(
             "player-records", "TrackedPlayers");
         res.send(TrackedPlayersDocument.players);
+
         dbController.shutdownClient();
     });
 
