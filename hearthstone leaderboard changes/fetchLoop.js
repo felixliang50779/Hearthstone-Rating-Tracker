@@ -1,11 +1,13 @@
 import axios from "axios";
+import env from "dotenv";
 import { DatabaseController } from "./databaseController.js";
 
 const fetchLoop = async () => {
+    env.config();
 
     // Initialize controller for a database at the cluster url we indicate
     const dbController = new DatabaseController(
-        "mongodb+srv://fliang2024:SpveX9eUid8w60pd@cluster0.ispagpy.mongodb.net/?retryWrites=true&w=majority", 
+        process.env.URL, 
         "hearthstone-battlegrounds-records");
 
     // Get most up-to-date player records
@@ -90,7 +92,5 @@ const fetchLoop = async () => {
 
     // res.status(200).send('Success!');
 }
-
-fetchLoop().then(TrackedPlayers => console.log(TrackedPlayers));
 
 export { fetchLoop };
