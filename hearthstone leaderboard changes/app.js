@@ -22,6 +22,7 @@ function initializeServer() {
         const TrackedPlayersDocument = await dbController.getDocument(
             "player-records", "TrackedPlayers");
         res.send(TrackedPlayersDocument.players);
+        dbController.shutdownClient();
     });
 
     app.listen(PORT, () =>
