@@ -1,10 +1,7 @@
 import axios from "axios";
-import env from "dotenv";
 import { DatabaseController } from "./databaseController.js";
 
 const fetchLoop = async () => {
-    env.config();
-
     // Initialize controller for a database at the cluster url we indicate
     const dbController = new DatabaseController(
         process.env.URL, 

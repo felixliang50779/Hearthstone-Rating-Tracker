@@ -4,14 +4,13 @@ import env from 'dotenv';
 import { DatabaseController } from './databaseController.js';
 
 // Global variables
-let TrackedPlayers;
 let app;
+
+env.config();
 
 function initializeServer() {
     const PORT = process.env.PORT || 5000;
     app = express();
-
-    env.config();
 
     const dbController = new DatabaseController(
         process.env.url, "hearthstone-battlegrounds-records");
