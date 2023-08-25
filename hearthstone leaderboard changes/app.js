@@ -14,7 +14,7 @@ function initializeServer() {
     env.config();
 
     const dbController = new DatabaseController(
-        process.env.URL, "hearthstone-battlegrounds-records");
+        process.env.url, "hearthstone-battlegrounds-records");
 
     app.use(cors());
 
