@@ -61,63 +61,38 @@ function App() {
       }
       let totalScore = 0;
       let numPlayed = 0;
+      let totalString="";
       return (
-        <div>
-          {results.map((result, index) => {
-            
-            
-            
-            if (index === 0) {
-              // First result, display as is
-              let timeStamp = timeDisplay(results.at(-1).timeStamp);
-              
-              return (
-                <div key={index}>
-                  <p>Rank: {results.at(-1).rank}</p>
-                  
-                  <p>Rating: {results.at(-1).rating}</p>
-                  
-                  <p>Time: {timeStamp}</p>
-                   
-                  <p>Rating Changes:</p>
-                  
-                  <p>
-                    {results.at(0).rating} is the starting rating
-                  </p>
-                </div>
-              );
-            }
-            
-            else {
-            const previousResult = results[index - 1];
-            let ratingDifference = result.rating - previousResult.rating;
-            if (ratingDifference>0){
-              ratingDifference = `+${ratingDifference}`
-            }
-            const timeStamp = timeDisplay(result.timeStamp);
-            let placement = mmrToPlace(ratingDifference);
-            totalScore += placement;
-            
-            numPlayed += 1;
-            // Format the rating and rating difference
-           
-              let displayString = `${ratingDifference} | ${result.rating} | 'Your placement was ${placement} | ${timeStamp}`;
-              return (
-                <div key={index}>
-                  <p>
-                    {`${displayString}`}
-                  </p>
-                  {index === results.length - 1 && ( // Check if it's the last index
-                    <p>
-                      {`Your winrate is ${(totalScore/numPlayed).toFixed(2)}`} {/* Calculate and display the winrate */}
-                    </p>
-                  )}
-                </div>
-              );
-            }
-          })}
+        <div className="App">
+            <table>
+                <tr>
+                    <th>Rank</th>
+                    <th>Rating</th>
+                    <th>Timestamp</th>
+                    <th>Rating Difference</th>
+                </tr>
+                {results.map((result, index) => {
+                    let previousResult
+                    if (index!==0){
+                      previousResult = results[index - 1];
+                    }
+                    else {
+                      previousResult = result;
+                    }
+                    
+                    let ratingDifference = result.rating - previousResult.rating;
+                    return (
+                        <tr key={index}>
+                            <td>{result.rank}</td>
+                            <td>{result.rating}</td>
+                            <td>{timeDisplay(result.timeStamp)}</td>
+                            <td>{ratingDifference}</td>
+                        </tr>
+                    )
+                })}
+            </table>
         </div>
-      );
+    );
     }
   }
   useEffect(() => {
