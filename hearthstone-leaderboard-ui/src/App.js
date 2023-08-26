@@ -2,10 +2,10 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import './App.css';
 import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
+
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
+
 import TableRow from "@mui/material/TableRow";
 import Paper from '@mui/material/Paper';
 function App() {
@@ -57,7 +57,40 @@ function App() {
       return 8
     }
   }
-  function DisplayResult({ fetchResult }) {
+  function DisplayResult({fetchResult}) {
+    if (!fetchResult) {
+      return <p>Loading</p>;
+    }
+    const results = fetchResult.data.dog;
+    let gamesPlayed=0;
+    let mmrGained=0
+    let totalScore=0;
+    
+    let previousResult;
+    let ratingDifference;
+    results.forEach(result => {
+      if (gamesPlayed!==0){
+        ratingDifference = result.rating - previousResult.rating;
+        ratingDifference= result.rating-previousResult.rating;
+        totalScore += mmrToPlace(ratingDifference);
+        mmrGained += ratingDifference;
+      }
+      
+      
+      
+      
+      gamesPlayed += 1;
+      previousResult = result;
+    });
+
+    return (
+      <div>
+        {`MMR gained is ${mmrGained}. You played ${gamesPlayed} games. The estimated winrate is ${(totalScore/gamesPlayed).toFixed(3)}. Average MMR gained per game is ${(mmrGained/gamesPlayed).toFixed(3)} `}
+        <DisplayTable fetchResult={fetchResult} />
+      </div>
+    );
+  }
+  function DisplayTable({ fetchResult }) {
     if (!fetchResult) {
       return <p>Loading</p>;
     } else {
@@ -65,9 +98,7 @@ function App() {
       if (results.length === 0) {
         return <p>No results available</p>;
       }
-      let totalScore = 0;
-      let numPlayed = 0;
-      let totalString="";
+      
       return (
         <div className="App">
           <TableContainer component={Paper}>
@@ -78,6 +109,7 @@ function App() {
                     <TableCell>Rating</TableCell>
                     <TableCell>Timestamp</TableCell>
                     <TableCell>Rating Difference</TableCell>
+                    <TableCell>Estimated Winrate</TableCell>
                 </TableRow>
                 {results.map((result, index) => {
                     let previousResult
@@ -95,6 +127,7 @@ function App() {
                             <TableCell>{result.rating}</TableCell>
                             <TableCell>{timeDisplay(result.timeStamp)}</TableCell>
                             <TableCell>{ratingDifference}</TableCell>
+                            <TableCell>{mmrToPlace(ratingDifference)}</TableCell>
                         </TableRow>
                     )
                 })}
