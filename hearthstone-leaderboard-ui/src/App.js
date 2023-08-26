@@ -1,7 +1,13 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import './App.css';
-
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from '@mui/material/Paper';
 function App() {
   const [fetchResult, setFetchResult] = useState(null);
   function timeDisplay(time){
@@ -64,13 +70,15 @@ function App() {
       let totalString="";
       return (
         <div className="App">
-            <table>
-                <tr>
-                    <th>Rank</th>
-                    <th>Rating</th>
-                    <th>Timestamp</th>
-                    <th>Rating Difference</th>
-                </tr>
+          <TableContainer component={Paper}>
+            <Table>
+              
+                <TableRow>
+                    <TableCell>Rank</TableCell>
+                    <TableCell>Rating</TableCell>
+                    <TableCell>Timestamp</TableCell>
+                    <TableCell>Rating Difference</TableCell>
+                </TableRow>
                 {results.map((result, index) => {
                     let previousResult
                     if (index!==0){
@@ -82,15 +90,16 @@ function App() {
                     
                     let ratingDifference = result.rating - previousResult.rating;
                     return (
-                        <tr key={index}>
-                            <td>{result.rank}</td>
-                            <td>{result.rating}</td>
-                            <td>{timeDisplay(result.timeStamp)}</td>
-                            <td>{ratingDifference}</td>
-                        </tr>
+                        <TableRow key={index}>
+                            <TableCell>{result.rank}</TableCell>
+                            <TableCell>{result.rating}</TableCell>
+                            <TableCell>{timeDisplay(result.timeStamp)}</TableCell>
+                            <TableCell>{ratingDifference}</TableCell>
+                        </TableRow>
                     )
                 })}
-            </table>
+            </Table>
+            </TableContainer>
         </div>
     );
     }
