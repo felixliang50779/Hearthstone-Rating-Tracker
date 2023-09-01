@@ -5,12 +5,12 @@ export function TableHeader({ fetchResult }) {
 
     const results = fetchResult.data.dog;
     let gamesPlayed=0;
-    let mmrGained=0
+    let mmrGained=0;
     
     let previousResult;
     let ratingDifference;
     results.forEach(result => {
-      if (gamesPlayed!==0){
+      if (gamesPlayed!==0) {
         ratingDifference = result.rating - previousResult.rating;
         ratingDifference= result.rating-previousResult.rating;
         mmrGained += ratingDifference;
