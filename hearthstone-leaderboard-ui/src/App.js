@@ -5,7 +5,7 @@ import Table from "@mui/material/Table";
 
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
-
+import { LineChart } from '@mui/x-charts/LineChart';
 import TableRow from "@mui/material/TableRow";
 import Paper from '@mui/material/Paper';
 function App() {
@@ -82,19 +82,52 @@ function App() {
       gamesPlayed += 1;
       previousResult = result;
     });
-
+    gamesPlayed-= 1;
     return (
       <div>
         {`MMR gained is ${mmrGained}. You played ${gamesPlayed} games. The estimated winrate is ${(totalScore/gamesPlayed).toFixed(3)}. Average MMR gained per game is ${(mmrGained/gamesPlayed).toFixed(3)} `}
-        <DisplayTable fetchResult={fetchResult} />
+        
+        <BasicLineChart results={results} />
+        <DisplayTable results={results} />
       </div>
     );
   }
-  function DisplayTable({ fetchResult }) {
+  function BasicLineChart({results}) {
     if (!fetchResult) {
-      return <p>Loading</p>;
+      return <p>why is Loading</p>;
     } else {
-      const results = fetchResult.data.dog;
+      let gamesPlayed=0;
+      let xAxis=[];
+      let yAxis=[];
+      results.forEach(result => {
+        if (gamesPlayed!==0){
+        }
+        gamesPlayed+=1;
+        xAxis.push(gamesPlayed);
+        yAxis.push(result.rating);
+      })
+    return (
+      
+      <LineChart
+        xAxis={[{ data: xAxis }]}
+        series={[
+          {
+            data: yAxis,
+            curve:"linear",
+          },
+          ]}
+          width={1000}
+          height={300}
+        />
+      
+        )
+      }
+  }
+  function DisplayTable({ results }) {
+    if (!fetchResult) {
+      return <p>why is Loading</p>;
+    } else {
+      
       if (results.length === 0) {
         return <p>No results available</p>;
       }
