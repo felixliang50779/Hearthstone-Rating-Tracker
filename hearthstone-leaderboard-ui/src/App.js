@@ -1,11 +1,12 @@
 import axios from 'axios';
 import { TableHeader } from './Components/Table/TableHeader';
 import { DataTable } from './Components/Table/DataTable';
+import { lineGraph } from './Components/LineGraph'
 import { useState, useEffect } from 'react';
 
 function App() {
   const [fetchResult, setFetchResult] = useState(null);
-
+  
   function timeDisplay(time) {
     const dateObject = new Date(time);
     const formattedTime = dateObject.toLocaleTimeString('en-US', {
@@ -34,6 +35,7 @@ function App() {
     <div>
       <TableHeader fetchResult={fetchResult} />
       <DataTable fetchResult={fetchResult} timeDisplay={timeDisplay} />
+      <lineGraph fetchResult={fetchResult}/>
     </div>
   );
 }
