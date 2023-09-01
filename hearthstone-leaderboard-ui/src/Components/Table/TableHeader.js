@@ -1,6 +1,6 @@
 export function TableHeader({ fetchResult }) {
     if (!fetchResult) {
-      return <p>Loading</p>;
+      return <p>Loading Player Summary</p>;
     }
 
     const results = fetchResult.data.dog;

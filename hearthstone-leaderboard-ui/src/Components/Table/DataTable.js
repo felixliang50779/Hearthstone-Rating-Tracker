@@ -10,7 +10,7 @@ export function DataTable({ fetchResult, timeDisplay }) {
     let results;
 
     if (!fetchResult) {
-        return <p>Loading</p>;
+        return <p>Loading Player Data</p>;
     } 
     else {
         results = fetchResult.data.dog;
@@ -24,10 +24,10 @@ export function DataTable({ fetchResult, timeDisplay }) {
             <TableContainer component={Paper}>
                 <Table>
                     <TableRow>
-                        <TableCell>Rank</TableCell>
                         <TableCell>Rating</TableCell>
-                        <TableCell>Timestamp</TableCell>
+                        <TableCell>Rank</TableCell>
                         <TableCell>Rating Difference</TableCell>
+                        <TableCell>Timestamp</TableCell>
                     </TableRow>
                     {results.map((result, index) => {
                         let previousResult
@@ -41,10 +41,10 @@ export function DataTable({ fetchResult, timeDisplay }) {
                         let ratingDifference = result.rating - previousResult.rating;
                         return (
                             <TableRow key={index}>
-                                <TableCell>{result.rank}</TableCell>
                                 <TableCell>{result.rating}</TableCell>
-                                <TableCell>{timeDisplay(result.timeStamp)}</TableCell>
+                                <TableCell>{result.rank}</TableCell>
                                 <TableCell>{ratingDifference}</TableCell>
+                                <TableCell>{timeDisplay(result.timeStamp)}</TableCell>
                             </TableRow>
                         )
                     })}
