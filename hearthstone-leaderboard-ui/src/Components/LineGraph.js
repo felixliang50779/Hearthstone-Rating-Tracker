@@ -8,8 +8,9 @@ export function LineGraph({fetchResult}){
         return <p>Loading Graph Data</p>;
       }
       let results = fetchResult.data.dog;
+
       const initializeChart = () => {
-        const fetchData = results.map((result, index) => [result.timeStamp, result.rating]);
+        const fetchData = results.map(result => [result.timeStamp, result.rating]);
         let options = {
             series: [{
             data: fetchData
@@ -98,8 +99,5 @@ export function LineGraph({fetchResult}){
       };
     
 
-    initializeChart()
-    
-
-    return <div id="chart"></div>;
+        initializeChart();
     }
