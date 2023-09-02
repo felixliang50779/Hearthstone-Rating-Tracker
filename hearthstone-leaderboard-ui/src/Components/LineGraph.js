@@ -3,12 +3,23 @@
 import ApexCharts from 'apexcharts';
 
 export function LineGraph({fetchResult}){
-    
+    function handleGraphButton(time, chart){
+        const today = new Date();
+         // Number of days to subtract
+
+        const previousDate = new Date(today);
+        previousDate.setDate(today.getDate() - time);
+        chart.zoomX(
+            
+            previousDate.getTime(),
+            today.getTime()
+          )
+    }
     if (!fetchResult) {
         return <p>Loading Graph Data</p>;
       }
       let results = fetchResult.data.dog;
-
+      let chart;
       const initializeChart = () => {
         const fetchData = results.map(result => [result.timeStamp, result.rating]);
         let options = {
@@ -89,14 +100,28 @@ export function LineGraph({fetchResult}){
         
         
         
-        const chart = new ApexCharts(document.getElementById('chart'), options);
+        chart = new ApexCharts(document.getElementById('chart'), options);
         chart.render();
         
         
         
       };
-    
+      
 
         initializeChart();
+        return (
+            <div>
+                <div className="toolbar">
+                <button onClick={() => handleGraphButton(1,chart)}>Last Day</button>
+                <button onClick={() => handleGraphButton(2,chart)}>Last 2 Days</button>
+                <button onClick={() => handleGraphButton(7,chart)}>Last Week</button>
+                
+                <button onClick={() => handleGraphButton(14,chart)}>Last 2 Weeks</button>
+              </div>
+              <div id="chart"></div>
+              
+            </div>
+          );
+        
         
     }
