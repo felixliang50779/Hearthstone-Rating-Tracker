@@ -1,22 +1,30 @@
 import Table from "@mui/material/Table";
 
+import { useState } from "react";
+
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
+import { TablePagination } from "@mui/material";
 
 import TableRow from "@mui/material/TableRow";
 import Paper from '@mui/material/Paper';
 
 export function DataTable({ fetchResult, timeDisplay }) {
-    let results;
+    const handlePageChange = (event, newPage) => {
+
+    }
+
+    const handleChangeRowsPerPage = event => {
+
+    }
 
     if (!fetchResult) {
         return <p>Loading Player Records</p>;
     } 
-    else {
-        results = fetchResult.data.dog;
-        if (results.length === 0) {
-            return <p>No results available</p>;
-        }
+
+    const results = fetchResult.data.dog;
+    if (results.length === 0) {
+        return <p>No results available</p>;
     }
         
     return (
@@ -48,6 +56,7 @@ export function DataTable({ fetchResult, timeDisplay }) {
                     )
                 })}
             </Table>
+            <TablePagination onPageChange={handlePageChange} onRowsPerPageChange={handleChangeRowsPerPage} />
         </TableContainer>
     );
 }
