@@ -52,7 +52,7 @@ export function TableHeader({ fetchResult }) {
 
     return (
       <div>
-        {`MMR gained is ${mmrGained}. You played ${gamesPlayed} games. Average MMR gained per game is ${(mmrGained/gamesPlayed).toFixed(3)}. Estimated Winrate is ${(totalPoints/gamesPlayed).toFixed(3)} `}
+        {`MMR gained is ${mmrGained}. You played ${gamesPlayed} games. Average MMR gained per game is ${(mmrGained/gamesPlayed).toFixed(3)}. Estimated Placement is ${(totalPoints/gamesPlayed).toFixed(3)} `}
       </div>
     );
   }
