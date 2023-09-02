@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { TableHeader } from './Components/Table/TableHeader';
 import { DataTable } from './Components/Table/DataTable';
-import { lineGraph } from './Components/LineGraph'
+import { LineGraph } from './Components/LineGraph';
 import { useState, useEffect } from 'react';
 
 function App() {
@@ -33,9 +33,11 @@ function App() {
 
   return (
     <div>
+      <LineGraph fetchResult={fetchResult}/>
       <TableHeader fetchResult={fetchResult} />
+      
       <DataTable fetchResult={fetchResult} timeDisplay={timeDisplay} />
-      <lineGraph fetchResult={fetchResult}/>
+      
     </div>
   );
 }
