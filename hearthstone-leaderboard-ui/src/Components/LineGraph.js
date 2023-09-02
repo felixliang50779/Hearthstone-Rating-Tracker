@@ -21,6 +21,7 @@ export function LineGraph({fetchResult}) {
     const fetchData = results.map(result => [result.timeStamp, result.rating]);
     let options = {
         series: [{
+          name: "Rating",
           data: fetchData
         }],
         chart: {
@@ -37,22 +38,10 @@ export function LineGraph({fetchResult}) {
             borderColor: '#999',
             label: {
               show: true,
-              text: 'Support',
+              text: 'Rating',
               style: {
                 color: "#fff",
                 background: '#00E396'
-              }
-            }
-          }],
-          xaxis: [{
-            borderColor: '#999',
-            yAxisIndex: 0,
-            label: {
-              show: true,
-              text: 'Rally',
-              style: {
-                color: "#fff",
-                background: '#775DD0'
               }
             }
           }]
@@ -102,9 +91,9 @@ export function LineGraph({fetchResult}) {
   return (
       <div>
         <div>
-          <button onClick={() => handleGraphButton(1,chart)}>Last Day</button>
-          <button onClick={() => handleGraphButton(2,chart)}>Last 2 Days</button>
-          <button onClick={() => handleGraphButton(7,chart)}>Last Week</button>
+          <button onClick={() => handleGraphButton(1,chart)}>1D</button>
+          <button onClick={() => handleGraphButton(2,chart)}>2D</button>
+          <button onClick={() => handleGraphButton(7,chart)}>1W</button>
         </div>
       </div>
   );
