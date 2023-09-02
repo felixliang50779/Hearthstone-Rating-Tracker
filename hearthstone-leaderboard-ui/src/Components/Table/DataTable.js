@@ -10,6 +10,9 @@ import TableRow from "@mui/material/TableRow";
 import Paper from '@mui/material/Paper';
 
 export function DataTable({ fetchResult, timeDisplay }) {
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
+
     const handlePageChange = (event, newPage) => {
 
     }
@@ -56,7 +59,13 @@ export function DataTable({ fetchResult, timeDisplay }) {
                     )
                 })}
             </Table>
-            <TablePagination onPageChange={handlePageChange} onRowsPerPageChange={handleChangeRowsPerPage} />
+            <TablePagination
+                onPageChange={handlePageChange}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+                page={page}
+                count={fetchResult.data.dog.length}
+                rowsPerPage={rowsPerPage}
+            />
         </TableContainer>
     );
 }
