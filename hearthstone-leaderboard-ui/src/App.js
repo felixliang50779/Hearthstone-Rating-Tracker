@@ -1,4 +1,5 @@
 import axios from 'axios';
+import styles from './App.module.css'
 import { TableHeader } from './Components/Table/TableHeader';
 import { DataTable } from './Components/Table/DataTable';
 import { LineGraph } from './Components/LineGraph';
@@ -32,9 +33,9 @@ function App() {
   }, []);
 
   return (
-    <div>
-      <LineGraph fetchResult={fetchResult}/>
+    <div className={styles['dashboard-wrapper']}>
       <TableHeader fetchResult={fetchResult} />
+      <LineGraph fetchResult={fetchResult} />
       
       <DataTable fetchResult={fetchResult} timeDisplay={timeDisplay} />
       

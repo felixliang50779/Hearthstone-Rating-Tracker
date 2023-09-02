@@ -33,7 +33,7 @@ export function TableHeader({ fetchResult }) {
     const results = fetchResult.data.dog;
 
     let gamesPlayed=0;
-    let mmrGained=0;
+    let netDifference=0;
     let totalPoints=0;
     let previousResult;
     let ratingDifference;
@@ -41,7 +41,7 @@ export function TableHeader({ fetchResult }) {
       if (gamesPlayed!==0){
         ratingDifference = result.rating - previousResult.rating;
         ratingDifference= result.rating-previousResult.rating;
-        mmrGained += ratingDifference;
+        netDifference += ratingDifference;
         totalPoints+=mmrToPlace(ratingDifference);
       }
       
@@ -50,9 +50,18 @@ export function TableHeader({ fetchResult }) {
     });
     gamesPlayed -=1;
 
+    let mmrOutcome;
+
+    if (netDifference < 0) {
+      mmrOutcome = "Lost";
+    }
+    else {
+      mmrOutcome = "Gained";
+    }
+
     return (
       <div>
-        {`MMR gained is ${mmrGained}. You played ${gamesPlayed} games. Average MMR gained per game is ${(mmrGained/gamesPlayed).toFixed(3)}. Estimated Placement is ${(totalPoints/gamesPlayed).toFixed(3)} `}
+        {`${mmrOutcome === "Lost" ? '-' : '+'}${netDifference} over ${gamesPlayed} games. Average MMR ${mmrOutcome} per game is ${(netDifference/gamesPlayed).toFixed(3)}. Average match placement is ${(Math.round(totalPoints/gamesPlayed))}rd`}
       </div>
     );
   }
