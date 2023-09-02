@@ -64,13 +64,11 @@ export function LineGraph({fetchResult}){
             labels: {
                 datetimeFormatter: {
                   year: 'yyyy',
-                  month: 'MMM',
-                  day: 'dd',
-                  hour: 'h',
-                  minute: 'mm',
-                },
-                format: 'dd MMM yyyy hh tt', // 'tt' displays AM/PM
-              },
+                  month: 'MMM \'yy',
+                  day: 'dd MMM',
+                  hour: 'HH:mm'
+                }
+              }
             
           },
           tooltip: {
@@ -100,4 +98,5 @@ export function LineGraph({fetchResult}){
     
 
         initializeChart();
+        
     }
