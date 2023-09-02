@@ -2,6 +2,7 @@ export function TableHeader({ fetchResult }) {
     if (!fetchResult) {
       return <p>Loading Player Summary</p>;
     }
+    
     function mmrToPlace(ratingDiff){
       if (ratingDiff>60){
         return 1;
@@ -28,7 +29,9 @@ export function TableHeader({ fetchResult }) {
         return 8;
       }
     }
+
     const results = fetchResult.data.dog;
+
     let gamesPlayed=0;
     let mmrGained=0;
     let totalPoints=0;
@@ -46,10 +49,10 @@ export function TableHeader({ fetchResult }) {
       previousResult = result;
     });
     gamesPlayed -=1;
+
     return (
       <div>
         {`MMR gained is ${mmrGained}. You played ${gamesPlayed} games. Average MMR gained per game is ${(mmrGained/gamesPlayed).toFixed(3)}. Estimated Winrate is ${(totalPoints/gamesPlayed).toFixed(3)} `}
       </div>
     );
   }
-
