@@ -13,7 +13,7 @@ function initializeServer() {
     app = express();
 
     const dbController = new DatabaseController(
-        process.env.url, "hearthstone-battlegrounds-records");
+        process.env.URL, "hearthstone-battlegrounds-records");
 
     app.use(cors());
 
@@ -33,3 +33,4 @@ function initializeServer() {
 }
 
 initializeServer();
+export default app;
