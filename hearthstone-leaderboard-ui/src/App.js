@@ -1,4 +1,5 @@
 import axios from 'axios';
+import * as React from 'react';
 
 import { TableHeader } from './Components/Table/TableHeader';
 import { DataTable } from './Components/Table/DataTable';
@@ -31,7 +32,7 @@ function App() {
   useEffect(() => {
    axios.get(
     "https://leaderboard-tracking-express.vercel.app/").then(
-      result => setFetchResult(result));
+      result => setFetchResult(result.data));
   }, []);
   if (!fetchResult){
     return (
@@ -41,12 +42,12 @@ function App() {
     )
   }
   //let results = fetchResult.data.EBFRLH11;
-  let results = fetchResult.data[selectedOption];
+  let results = fetchResult[selectedOption];
   return (
     <div>
       <LineGraph results={results} />
       <Dropdown
-        fetchResult={fetchResult}
+        fetchResult = {fetchResult}
         selectedOption={selectedOption}
         setSelectedOption={setSelectedOption}
       />
