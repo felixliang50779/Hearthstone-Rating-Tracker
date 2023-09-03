@@ -9,7 +9,7 @@ import { TablePagination } from "@mui/material";
 import TableRow from "@mui/material/TableRow";
 import Paper from '@mui/material/Paper';
 
-export function DataTable({ fetchResult, timeDisplay }) {
+export function DataTable({ results, timeDisplay }) {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -22,11 +22,9 @@ export function DataTable({ fetchResult, timeDisplay }) {
         setPage(0);
     }
 
-    if (!fetchResult) {
-        return <p>Loading Player Records</p>;
-    }
+    
 
-    const results = fetchResult.data.dog;
+    
     if (results.length === 0) {
         return <p>No results available</p>;
     }
@@ -79,7 +77,7 @@ export function DataTable({ fetchResult, timeDisplay }) {
                 onPageChange={handlePageChange}
                 onRowsPerPageChange={handleChangeRowsPerPage}
                 page={page}
-                count={fetchResult.data.dog.length}
+                count={results.length}
                 rowsPerPage={rowsPerPage}
             />
         </TableContainer>

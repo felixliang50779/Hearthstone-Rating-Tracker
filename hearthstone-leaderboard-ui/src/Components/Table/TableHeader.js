@@ -1,7 +1,5 @@
-export function TableHeader({ fetchResult }) {
-    if (!fetchResult) {
-      return <p>Loading Player Summary</p>;
-    }
+export function TableHeader({ results }) {
+    
     
     function mmrToPlace(ratingDiff){
       if (ratingDiff>60){
@@ -30,7 +28,7 @@ export function TableHeader({ fetchResult }) {
       }
     }
 
-    const results = fetchResult.data.dog;
+    
 
     let gamesPlayed=0;
     let netDifference=0;
@@ -61,7 +59,7 @@ export function TableHeader({ fetchResult }) {
 
     return (
       <div>
-        {`${mmrOutcome === "Lost" ? '-' : '+'}${netDifference} over ${gamesPlayed} games. Average MMR ${mmrOutcome} per game is ${(netDifference/gamesPlayed).toFixed(3)}. Average match placement is ${(Math.round(totalPoints/gamesPlayed))}rd`}
+        {`${mmrOutcome === "Lost" ? '-' : '+'}${netDifference} over ${gamesPlayed} games. Average MMR ${mmrOutcome} per game is ${(netDifference/gamesPlayed).toFixed(3)}. Average match placement is ${((totalPoints/gamesPlayed).toFixed(3))}`}
       </div>
     );
   }

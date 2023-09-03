@@ -31,13 +31,21 @@ function App() {
     "https://leaderboard-tracking-express.vercel.app/").then(
       result => setFetchResult(result));
   }, []);
-
+  if (!fetchResult){
+    return (
+      <div>
+        Loading
+      </div>
+    )
+  }
+  let results = fetchResult.data.dog;
+  
   return (
     <div className={styles['dashboard-wrapper']}>
       
-      <LineGraph fetchResult={fetchResult} />
-      <TableHeader fetchResult={fetchResult} />
-      <DataTable fetchResult={fetchResult} timeDisplay={timeDisplay} />
+      <LineGraph results={results} />
+      <TableHeader results={results} />
+      <DataTable results={results} timeDisplay={timeDisplay} />
       
     </div>
   );

@@ -2,7 +2,7 @@
 
 import ApexCharts from 'apexcharts';
 
-export function LineGraph({fetchResult}){
+export function LineGraph({results}){
     function handleGraphButton(time, chart){
         const today = new Date();
          // Number of days to subtract
@@ -27,10 +27,8 @@ export function LineGraph({fetchResult}){
             today.getTime()
           )
     }
-    if (!fetchResult) {
-        return <p>Loading Graph Data</p>;
-      }
-      let results = fetchResult.data.dog;
+    
+      
       let chart;
       const initializeChart = () => {
         const fetchData = results.map(result => [result.timeStamp, result.rating]);
