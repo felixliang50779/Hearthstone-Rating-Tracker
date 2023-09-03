@@ -41,6 +41,7 @@ export function DataTable({ fetchResult, timeDisplay }) {
         <TableContainer component={Paper}>
             <Table>
                 <TableRow>
+                    <TableCell>Record</TableCell>
                     <TableCell>Rating</TableCell>
                     <TableCell>Rank</TableCell>
                     <TableCell>Rating Difference</TableCell>
@@ -49,18 +50,22 @@ export function DataTable({ fetchResult, timeDisplay }) {
                 {results.slice(page * rowsPerPage-subtract, page * rowsPerPage + rowsPerPage).map((result, index) => {
                     let previousResult
                     if (index!==0) { 
-                        previousResult = results[index - 1];
+                        previousResult = results[index + page * rowsPerPage-subtract- 1];
                     }
                     else {
                         previousResult = result;
                     }
                     
                     let ratingDifference = result.rating - previousResult.rating;
+                    if (ratingDifference===0){
+                        ratingDifference= "N/A";
+                    }
                     if (index===0 & page!==0){
-                        return
+                        return null
                     }
                     return (
                         <TableRow key={index}>
+                            <TableCell>{index + page * rowsPerPage-subtract}</TableCell>
                             <TableCell>{result.rating}</TableCell>
                             <TableCell>{result.rank}</TableCell>
                             <TableCell>{ratingDifference}</TableCell>
