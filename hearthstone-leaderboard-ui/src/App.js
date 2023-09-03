@@ -1,13 +1,15 @@
 import axios from 'axios';
-import styles from './App.module.css'
+
 import { TableHeader } from './Components/Table/TableHeader';
 import { DataTable } from './Components/Table/DataTable';
 import { LineGraph } from './Components/LineGraph';
+import {Dropdown} from './Components/dropdown';
 import { useState, useEffect } from 'react';
+
 
 function App() {
   const [fetchResult, setFetchResult] = useState(null);
-  
+  const [selectedOption, setSelectedOption] = useState('EBFRLH11');
   function timeDisplay(time) {
     const dateObject = new Date(time);
     const formattedTime = dateObject.toLocaleTimeString('en-US', {
@@ -38,12 +40,17 @@ function App() {
       </div>
     )
   }
-  let results = fetchResult.data.EBFRLH11;
-  //let results = fetchResult.data.dog;
+  //let results = fetchResult.data.EBFRLH11;
+  let results = fetchResult.data[selectedOption];
   return (
-    <div className={styles['dashboard-wrapper']}>
-      
+    <div>
       <LineGraph results={results} />
+      <Dropdown
+        fetchResult={fetchResult}
+        selectedOption={selectedOption}
+        setSelectedOption={setSelectedOption}
+      />
+      
       <TableHeader results={results} />
       <DataTable results={results} timeDisplay={timeDisplay} />
       
