@@ -48,7 +48,7 @@ export function DataTable({ fetchResult, timeDisplay }) {
                 </TableRow>
                 {results.slice(page * rowsPerPage-subtract, page * rowsPerPage + rowsPerPage).map((result, index) => {
                     let previousResult
-                    if (index!==0) {
+                    if (index!==0) { 
                         previousResult = results[index - 1];
                     }
                     else {
@@ -56,6 +56,9 @@ export function DataTable({ fetchResult, timeDisplay }) {
                     }
                     
                     let ratingDifference = result.rating - previousResult.rating;
+                    if (index===0 & page!==0){
+                        return
+                    }
                     return (
                         <TableRow key={index}>
                             <TableCell>{result.rating}</TableCell>
