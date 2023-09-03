@@ -14,11 +14,12 @@ export function DataTable({ fetchResult, timeDisplay }) {
     const [rowsPerPage, setRowsPerPage] = useState(10);
 
     const handlePageChange = (event, newPage) => {
-
+        setPage(newPage);
     }
 
     const handleChangeRowsPerPage = event => {
-
+        setRowsPerPage(parseInt(event.target.value, 10));
+        setPage(0);
     }
 
     if (!fetchResult) {
@@ -60,6 +61,7 @@ export function DataTable({ fetchResult, timeDisplay }) {
                 })}
             </Table>
             <TablePagination
+                component="div"
                 onPageChange={handlePageChange}
                 onRowsPerPageChange={handleChangeRowsPerPage}
                 page={page}
