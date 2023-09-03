@@ -38,8 +38,8 @@ function App() {
       </div>
     )
   }
-  let results = fetchResult.data.dog;
-  
+  let results = fetchResult.data.EBFRLH11;
+  //let results = fetchResult.data.dog;
   return (
     <div className={styles['dashboard-wrapper']}>
       

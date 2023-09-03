@@ -45,10 +45,13 @@ export function LineGraph({results}){
             id: 'area-datetime',
             type: 'area',
             height: 350,
-            curve:'linear',
+            curve:'straight',
             zoom: {
               autoScaleYaxis: true
             }
+          },
+          stroke: {
+            curve: 'straight',
           },
           annotations: {
             yaxis: [{
