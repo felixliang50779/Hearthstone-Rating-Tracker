@@ -34,9 +34,9 @@ function App() {
 
   return (
     <div className={styles['dashboard-wrapper']}>
-      <TableHeader fetchResult={fetchResult} />
-      <LineGraph fetchResult={fetchResult} />
       
+      <LineGraph fetchResult={fetchResult} />
+      <TableHeader fetchResult={fetchResult} />
       <DataTable fetchResult={fetchResult} timeDisplay={timeDisplay} />
       
     </div>
