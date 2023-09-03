@@ -24,7 +24,7 @@ export function DataTable({ fetchResult, timeDisplay }) {
 
     if (!fetchResult) {
         return <p>Loading Player Records</p>;
-    } 
+    }
 
     const results = fetchResult.data.dog;
     if (results.length === 0) {
@@ -40,7 +40,7 @@ export function DataTable({ fetchResult, timeDisplay }) {
                     <TableCell>Rating Difference</TableCell>
                     <TableCell>Timestamp</TableCell>
                 </TableRow>
-                {results.map((result, index) => {
+                {results.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((result, index) => {
                     let previousResult
                     if (index!==0) {
                         previousResult = results[index - 1];
