@@ -30,7 +30,13 @@ export function DataTable({ fetchResult, timeDisplay }) {
     if (results.length === 0) {
         return <p>No results available</p>;
     }
-        
+    let subtract;
+    if (page===0) {
+        subtract = 0;
+    }
+    else {
+        subtract = 1;
+    }
     return (
         <TableContainer component={Paper}>
             <Table>
@@ -40,7 +46,7 @@ export function DataTable({ fetchResult, timeDisplay }) {
                     <TableCell>Rating Difference</TableCell>
                     <TableCell>Timestamp</TableCell>
                 </TableRow>
-                {results.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((result, index) => {
+                {results.slice(page * rowsPerPage-subtract, page * rowsPerPage + rowsPerPage).map((result, index) => {
                     let previousResult
                     if (index!==0) {
                         previousResult = results[index - 1];
