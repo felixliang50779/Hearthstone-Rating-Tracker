@@ -28,8 +28,6 @@ export function TableHeader({ results }) {
       }
     }
 
-    
-
     let gamesPlayed=0;
     let netDifference=0;
     let totalPoints=0;
@@ -46,20 +44,19 @@ export function TableHeader({ results }) {
       gamesPlayed += 1;
       previousResult = result;
     });
-    gamesPlayed -=1;
 
     let mmrOutcome;
 
     if (netDifference < 0) {
-      mmrOutcome = "Lost";
+      mmrOutcome = "lost";
     }
     else {
-      mmrOutcome = "Gained";
+      mmrOutcome = "gained";
     }
 
     return (
       <div>
-        {`${mmrOutcome === "Lost" ? '-' : '+'}${netDifference} over ${gamesPlayed} games. Average MMR ${mmrOutcome} per game is ${(netDifference/gamesPlayed).toFixed(3)}. Average match placement is ${((totalPoints/gamesPlayed).toFixed(3))}`}
+        {`${mmrOutcome === "lost" ? '-' : '+'}${netDifference} over ${gamesPlayed} records. Average rating ${mmrOutcome} per match was ${(netDifference/gamesPlayed).toFixed(3)} points. Average match placement is estimated from this data to be ~${(Math.round((totalPoints/gamesPlayed)))}`}
       </div>
     );
   }
