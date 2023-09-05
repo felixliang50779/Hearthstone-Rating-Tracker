@@ -1,17 +1,32 @@
+import { useState, useEffect } from "react";
+
+import { TableHeader } from "./TableHeader";
+
 import Table from "@mui/material/Table";
-
-import { useState } from "react";
-
 import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
+import TableRow from "@mui/material/TableRow";
+import { TableContainer } from "@mui/material";
 import { TablePagination } from "@mui/material";
 
-import TableRow from "@mui/material/TableRow";
-import Paper from '@mui/material/Paper';
+import { Card } from 'dracula-ui';
 
-export function DataTable({ results, timeDisplay }) {
+
+export function DataTable({ fetchResult, selectPlayer, timeDisplay }) {
     const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(10);
+    const [rowsPerPage, setRowsPerPage] = useState(5);
+    const [selectedPlayer,] = selectPlayer;
+    const [oldestFirst, setOldestFirst] = useState(false);
+
+    if (!oldestFirst) {
+        fetchResult[selectedPlayer].sort((a, b) => (a.timeStamp < b.timeStamp) ? 1 : -1);
+    }
+    else {
+        fetchResult[selectedPlayer].sort((a, b) => (a.timeStamp > b.timeStamp) ? 1 : -1);
+    }
+
+    useEffect(() => {
+        setPage(0);
+    }, [selectedPlayer]);
 
     const handlePageChange = (event, newPage) => {
         setPage(newPage);
@@ -22,9 +37,6 @@ export function DataTable({ results, timeDisplay }) {
         setPage(0);
     }
     
-    if (results.length === 0) {
-        return <p>No results available</p>;
-    }
     let subtract;
     if (page===0) {
         subtract = 0;
@@ -32,51 +44,85 @@ export function DataTable({ results, timeDisplay }) {
     else {
         subtract = 1;
     }
+
     return (
-        <TableContainer component={Paper}>
-            <Table>
-                <TableRow>
-                    <TableCell>ID</TableCell>
-                    <TableCell>Rating</TableCell>
-                    <TableCell>Rank</TableCell>
-                    <TableCell>Rating Change</TableCell>
-                    <TableCell>Timestamp</TableCell>
-                </TableRow>
-                {results.slice(page * rowsPerPage-subtract, page * rowsPerPage + rowsPerPage).map((result, index) => {
-                    let previousResult
-                    if (index !== 0) { 
-                        previousResult = results[index + page * rowsPerPage-subtract- 1];
+        <Card color="black" p="sm" style={{ boxShadow: "none" }}>
+            <TableHeader oldestFirst={oldestFirst} setOldestFirst={setOldestFirst} />
+            <TableContainer
+                style={{ overflowX: 'auto', overflowY: 'auto', width: 575, height: 288 }}
+                sx={{
+                    "&::-webkit-scrollbar": {
+                        width: 10
+                    },
+                    "&::-webkit-scrollbar-track": {
+                        backgroundColor: "#282a36"
+                    },
+                    "&::-webkit-scrollbar-thumb": {
+                        backgroundColor: "#44475a",
+                        borderRadius: 20
                     }
-                    else {
-                        previousResult = result;
-                    }
-                    
-                    let ratingDifference = result.rating - previousResult.rating;
-                    if (ratingDifference === 0){
-                        ratingDifference= "N/A";
-                    }
-                    if (index === 0 && page!== 0){
-                        return null
-                    }
-                    return (
-                        <TableRow key={index}>
-                            <TableCell>{index + 1 + page * rowsPerPage-subtract}</TableCell>
-                            <TableCell>{result.rating}</TableCell>
-                            <TableCell>{result.rank}</TableCell>
-                            <TableCell>{ratingDifference}</TableCell>
-                            <TableCell>{timeDisplay(result.timeStamp)}</TableCell>
-                        </TableRow>
-                    )
-                })}
-            </Table>
+                }}>
+                <Table component="div" style={{ overflow: "auto" }}>
+                    <TableRow sx={{ color: "#f8f8f2" }}>
+                        <TableCell sx={{ fontFamily: "Roboto-Mono", fontSize: 14 }}>ID</TableCell>
+                        <TableCell sx={{ fontFamily: "Roboto-Mono", fontSize: 14 }}>Rating</TableCell>
+                        <TableCell sx={{ fontFamily: "Roboto-Mono", fontSize: 14 }}>Rank</TableCell>
+                        <TableCell sx={{ fontFamily: "Roboto-Mono", fontSize: 14 }}>Rating Change</TableCell>
+                        <TableCell sx={{ fontFamily: "Roboto-Mono", fontSize: 14 }}>Timestamp</TableCell>
+                    </TableRow>
+                    {fetchResult[selectedPlayer].slice(page * rowsPerPage-subtract, page * rowsPerPage + rowsPerPage).map((result, index) => {
+                        let previousResult
+                        if (index !== 0) { 
+                            previousResult = fetchResult[selectedPlayer][index + page * rowsPerPage-subtract- 1];
+                        }
+                        else {
+                            previousResult = result;
+                        }
+                        
+                        let ratingDifference = result.rating - previousResult.rating;
+                        if (ratingDifference === 0){
+                            ratingDifference= "N/A";
+                        }
+                        if (index === 0 && page !== 0){
+                            return null
+                        }
+                        return (
+                            <TableRow key={index} sx={{ color: "#f8f8f2" }}>
+                                <TableCell
+                                    sx={{ fontFamily: "Roboto-Mono", fontSize: 14 }}>
+                                        {index + 1 + page * rowsPerPage-subtract}
+                                </TableCell>
+                                <TableCell
+                                    sx={{ fontFamily: "Roboto-Mono", fontSize: 14 }}>
+                                        {result.rating}
+                                </TableCell>
+                                <TableCell
+                                    sx={{ fontFamily: "Roboto-Mono", fontSize: 14 }}>
+                                        {result.rank}
+                                </TableCell>
+                                <TableCell
+                                    sx={{ fontFamily: "Roboto-Mono", fontSize: 14 }}>
+                                        {ratingDifference}
+                                </TableCell>
+                                <TableCell
+                                    sx={{ fontFamily: "Roboto-Mono", fontSize: 14 }}>
+                                        {timeDisplay(result.timeStamp)}
+                                </TableCell>
+                            </TableRow>
+                        )
+                    })}
+                </Table>
+            </TableContainer>
             <TablePagination
-                component="div"
-                onPageChange={handlePageChange}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-                page={page}
-                count={results.length}
-                rowsPerPage={rowsPerPage}
+                    component="div"
+                    onPageChange={handlePageChange}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                    page={page}
+                    count={fetchResult[selectedPlayer].length}
+                    rowsPerPage={rowsPerPage}
+                    rowsPerPageOptions={[5, 10, 25, 50]}
+                    sx={{ color: "white", fontFamily: "Roboto-Mono", fontSize: 14, maxHeight: "40px", overflow: "hidden" }}
             />
-        </TableContainer>
+        </Card>
     );
 }

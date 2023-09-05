@@ -1,8 +1,6 @@
 import Box from '@mui/material/Box';
 import { Select } from 'dracula-ui';
 
-import styles from './Dropdown.module.css'
-
 export function Dropdown({ fetchResult, setPlayer }) {
 
     const handleDropdownChange = event => {
@@ -10,7 +8,7 @@ export function Dropdown({ fetchResult, setPlayer }) {
     }
 
     return (
-        <Box className={styles.dropdown} sx={{ minWidth: 120 }}>
+        <Box>
             <Select
                 onChange={handleDropdownChange}
                 color='purple'>

@@ -1,5 +1,4 @@
 import Chart from 'react-apexcharts';
-import { useState } from 'react';
 
 import { GraphHeader } from './GraphHeader';
 
@@ -9,8 +8,8 @@ import { Text } from "dracula-ui";
 import './LineGraph.css';
 
 
-export function LineGraph({ fetchResult }) {
-  const [selectedPlayer, setSelectedPlayer] = useState(Object.keys(fetchResult)[0]);
+export function LineGraph({ fetchResult, selectPlayer }) {
+  const [selectedPlayer, setSelectedPlayer] = selectPlayer;
 
   const graphConfig = {
     options: {
@@ -61,15 +60,21 @@ export function LineGraph({ fetchResult }) {
   }
 
   return (
-    <Card color="black" p="sm" width='4xl' height='sm' style={{textAlign : "center" }} display="inline-grid">
-      <GraphHeader fetchResult={fetchResult} setPlayer={setSelectedPlayer} />
-      {fetchResult[selectedPlayer].length ? <Chart
-        options = {graphConfig.options}
-        series = {graphConfig.series}
-        type="line"
-        width={870}
-        height={280}
-      /> : <Text style={{ paddingBottom: 58 }}>No records found for this player!</Text>}
+    <Card
+      color="black"
+      p="sm"
+      width='3xl'
+      height='sm'
+      style={{textAlign : "center", boxShadow: "none" }}
+      display="inline-grid">
+        <GraphHeader fetchResult={fetchResult} setPlayer={setSelectedPlayer} />
+        {fetchResult[selectedPlayer].length ? <Chart
+          options = {graphConfig.options}
+          series = {graphConfig.series}
+          type="line"
+          width={728}
+          height={280}
+        /> : <Text style={{ paddingBottom: 58 }}>No records found for this player!</Text>}
     </Card>
   )
 }

@@ -1,62 +1,30 @@
-export function TableHeader({ results }) {
-    
-    
-    function mmrToPlace(ratingDiff){
-      if (ratingDiff>60){
-        return 1;
-      }
-      else if (ratingDiff>35){
-        return 2;
-      }
-      else if (ratingDiff>10){
-        return 3;
-      }
-      else if (ratingDiff>-15){
-        return 4;
-      }
-      else if (ratingDiff>-40){
-        return 5;
-      }
-      else if (ratingDiff>-65){
-        return 6;
-      }
-      else if (ratingDiff>-90){
-        return 7;
-      }
-      else {
-        return 8;
-      }
-    }
+import { Text } from "dracula-ui";
+import { Switch } from "dracula-ui";
 
-    let gamesPlayed=0;
-    let netDifference=0;
-    let totalPoints=0;
-    let previousResult;
-    let ratingDifference;
-    results.forEach(result => {
-      if (gamesPlayed!==0){
-        ratingDifference = result.rating - previousResult.rating;
-        ratingDifference= result.rating-previousResult.rating;
-        netDifference += ratingDifference;
-        totalPoints+=mmrToPlace(ratingDifference);
-      }
-      
-      gamesPlayed += 1;
-      previousResult = result;
-    });
+import styles from './TableHeader.module.css';
 
-    let mmrOutcome;
-
-    if (netDifference < 0) {
-      mmrOutcome = "lost";
-    }
-    else {
-      mmrOutcome = "gained";
-    }
-
-    return (
-      <div>
-        {`${mmrOutcome === "lost" ? '-' : '+'}${netDifference} over ${gamesPlayed} records. Average rating ${mmrOutcome} per match was ${(netDifference/gamesPlayed).toFixed(3)} points. Average match placement is estimated from this data to be ~${(Math.round((totalPoints/gamesPlayed)))}`}
-      </div>
-    );
+export function TableHeader({ oldestFirst, setOldestFirst }) {
+  const handleSwitchChange = () => {
+    setOldestFirst(prevState => {
+      return !prevState;
+    })
   }
+
+  return (
+    <div className={styles['tableHeader']}>
+      <Text
+        size="lg"
+        weight="bold"
+        color="pink">Player Records</Text>
+      <Switch
+        color="purple"
+        id="toggleOrder"
+        defaultChecked={oldestFirst}
+        style={{ marginLeft: "48%" }}
+        onChange={handleSwitchChange} />
+      <label htmlFor="toggleOrder" style={{ fontFamily: "Roboto-Mono", color: "white" }}>
+        Oldest First
+      </label>
+    </div>
+  );
+}
