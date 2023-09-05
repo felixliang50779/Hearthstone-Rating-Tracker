@@ -6,6 +6,8 @@ import { GraphHeader } from './GraphHeader';
 import { Card } from "dracula-ui";
 import { Text } from "dracula-ui";
 
+import './LineGraph.css';
+
 
 export function LineGraph({ fetchResult }) {
   const [selectedPlayer, setSelectedPlayer] = useState(Object.keys(fetchResult)[0]);
@@ -25,6 +27,11 @@ export function LineGraph({ fetchResult }) {
             enabled: true,
             speed: 500
           }
+        },
+        toolbar: {
+          tools: {
+            download: false
+          }
         }
       },
       xaxis: {
@@ -32,10 +39,11 @@ export function LineGraph({ fetchResult }) {
         labels: {
           style: {
             colors: "white"
-          }
+          },
+          datetimeUTC: false
         },
         categories: fetchResult[selectedPlayer].map(record => { 
-          return Date.parse(record.timeStamp)
+          return Date.parse(record.timeStamp);
         })
       },
       yaxis: {
@@ -61,7 +69,7 @@ export function LineGraph({ fetchResult }) {
         type="line"
         width={870}
         height={280}
-      /> : <Text style={{ paddingBottom: 60}}>No records found for this player!</Text>}
+      /> : <Text style={{ paddingBottom: 58 }}>No records found for this player!</Text>}
     </Card>
   )
 }

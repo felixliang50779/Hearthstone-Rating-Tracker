@@ -1,0 +1,7 @@
+.apexcharts-zoom-icon.apexcharts-selected svg {
+    fill: #68e397 !important;
+}
+  
+.apexcharts-pan-icon.apexcharts-selected svg {
+    stroke: #68e397 !important;
+}
