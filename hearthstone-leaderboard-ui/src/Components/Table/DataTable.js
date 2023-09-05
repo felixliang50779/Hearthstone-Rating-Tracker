@@ -52,10 +52,10 @@ export function DataTable({ results, timeDisplay }) {
                     }
                     
                     let ratingDifference = result.rating - previousResult.rating;
-                    if (ratingDifference===0){
+                    if (ratingDifference === 0){
                         ratingDifference= "N/A";
                     }
-                    if (index===0 & page!==0){
+                    if (index === 0 && page!== 0){
                         return null
                     }
                     return (
