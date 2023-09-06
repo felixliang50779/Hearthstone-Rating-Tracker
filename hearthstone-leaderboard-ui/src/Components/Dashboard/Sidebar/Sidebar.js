@@ -36,7 +36,7 @@ export function DefaultSidebar() {
           </ListItemPrefix>
           <Text className="px-11">Battlegrounds</Text>
         </ListItem>
-        <ListItem style={{ color: "white" }} className="p-5">
+        <ListItem style={{ color: "white" }} className="m-1 p-4">
           <ListItemPrefix className="h-2">
             <img
               src={StandardIcon}
@@ -54,7 +54,7 @@ export function DefaultSidebar() {
           </ListItemPrefix>
           <Text className="px-10">Classic</Text>
         </ListItem>
-        <ListItem style={{ color: "white" }} className="-m-1 p-5">
+        <ListItem style={{ color: "white" }} className="-m-1 p-5 px-5">
           <ListItemPrefix className="h-2">
             <img
               src={MercenariesIcon}
@@ -63,7 +63,7 @@ export function DefaultSidebar() {
           </ListItemPrefix>
           <Text className="px-11">Mercenaries</Text>
         </ListItem>
-        <ListItem style={{ color: "white" }} className="-m-2 p-6">
+        <ListItem style={{ color: "white" }} className="-m-2 p-6 py-7">
           <ListItemPrefix className="h-2">
             <img
               src={ArenaIcon}
