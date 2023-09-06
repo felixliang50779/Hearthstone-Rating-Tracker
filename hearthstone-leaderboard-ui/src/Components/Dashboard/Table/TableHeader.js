@@ -20,9 +20,9 @@ export function TableHeader({ oldestFirst, setOldestFirst }) {
         color="purple"
         id="toggleOrder"
         defaultChecked={oldestFirst}
-        style={{ marginLeft: "48%" }}
+        style={{ marginLeft: "45%", paddingRight: "9%" }}
         onChange={handleSwitchChange} />
-      <label htmlFor="toggleOrder" style={{ fontFamily: "Roboto-Mono", color: "white" }}>
+      <label htmlFor="toggleOrder" style={{ fontFamily: "Roboto-Mono", color: "white", paddingLeft: "1%" }}>
         Oldest First
       </label>
     </div>
