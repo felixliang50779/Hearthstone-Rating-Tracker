@@ -55,7 +55,7 @@ export function LineGraph({ fetchResult, selectPlayer }) {
     },
     series: [{
       name: "Rating",
-      data: fetchResult[selectedPlayer].map(record => record.rating)
+      data: fetchResult[selectedPlayer].map(record => record.rating),
     }]
   }
 
@@ -64,8 +64,15 @@ export function LineGraph({ fetchResult, selectPlayer }) {
       color="black"
       p="sm"
       width='2xl'
-      height='md'
-      style={{textAlign : "center", boxShadow: "none", position: "absolute", bottom: 0, marginLeft: "40%", marginBottom: "30%"}}
+      height='lg'
+      style={
+        {textAlign : "center",
+          boxShadow: "none",
+          position: "absolute",
+          bottom: 0,
+          marginLeft: "40%",
+          marginBottom: "30%"
+        }}
       display="inline-grid">
         <GraphHeader fetchResult={fetchResult} setPlayer={setSelectedPlayer} />
         {fetchResult[selectedPlayer].length ? <Chart

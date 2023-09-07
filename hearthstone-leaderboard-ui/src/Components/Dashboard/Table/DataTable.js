@@ -11,17 +11,19 @@ import { TablePagination } from "@mui/material";
 import { Card } from 'dracula-ui';
 
 
-export function DataTable({ fetchResult, selectPlayer, timeDisplay }) {
+export function DataTable({ fetchResult, fromOldest, selectPlayer, timeDisplay }) {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
     const [selectedPlayer,] = selectPlayer;
-    const [oldestFirst, setOldestFirst] = useState(false);
+    const [oldestFirst, setOldestFirst] = fromOldest;
+
+    let processedData;
 
     if (!oldestFirst) {
-        fetchResult[selectedPlayer].sort((a, b) => (a.timeStamp < b.timeStamp) ? 1 : -1);
+        processedData = [...fetchResult[selectedPlayer]].sort((a, b) => (a.timeStamp < b.timeStamp) ? 1 : -1);
     }
     else {
-        fetchResult[selectedPlayer].sort((a, b) => (a.timeStamp > b.timeStamp) ? 1 : -1);
+        processedData = [...fetchResult[selectedPlayer]].sort((a, b) => (a.timeStamp > b.timeStamp) ? 1 : -1);
     }
 
     useEffect(() => {
@@ -48,12 +50,13 @@ export function DataTable({ fetchResult, selectPlayer, timeDisplay }) {
     return (
         <Card
             color="black"
-            p="sm" width="md"
-            height="md"
+            p="sm"
+            width="md"
+            height="lg"
             style={{ boxShadow: "none", position: "absolute", bottom: 0, marginBottom: "30%", marginLeft: "2080%" }}>
             <TableHeader oldestFirst={oldestFirst} setOldestFirst={setOldestFirst} />
             <TableContainer
-                style={{ overflowy: "auto", maxHeight: "20rem", width: "100%", height: "100%" }}
+                style={{ overflowy: "auto", maxHeight: "24rem", width: "100%", height: "100%" }}
                 sx={{
                     "&::-webkit-scrollbar": {
                         width: 10
@@ -74,10 +77,10 @@ export function DataTable({ fetchResult, selectPlayer, timeDisplay }) {
                         <TableCell sx={{ fontFamily: "Roboto-Mono", fontSize: 14 }}>Rating Change</TableCell>
                         <TableCell sx={{ fontFamily: "Roboto-Mono", fontSize: 14 }}>Timestamp</TableCell>
                     </TableRow>
-                    {fetchResult[selectedPlayer].slice(page * rowsPerPage-subtract, page * rowsPerPage + rowsPerPage).map((result, index) => {
+                    {processedData.slice(page * rowsPerPage-subtract, page * rowsPerPage + rowsPerPage).map((result, index) => {
                         let previousResult
                         if (index !== 0) { 
-                            previousResult = fetchResult[selectedPlayer][index + page * rowsPerPage-subtract- 1];
+                            previousResult = processedData[index + page * rowsPerPage-subtract- 1];
                         }
                         else {
                             previousResult = result;
@@ -122,7 +125,7 @@ export function DataTable({ fetchResult, selectPlayer, timeDisplay }) {
                     onPageChange={handlePageChange}
                     onRowsPerPageChange={handleChangeRowsPerPage}
                     page={page}
-                    count={fetchResult[selectedPlayer].length}
+                    count={processedData.length}
                     rowsPerPage={rowsPerPage}
                     rowsPerPageOptions={[5, 10, 25, 50]}
                     sx={{ color: "white", fontFamily: "Roboto-Mono", fontSize: 14, maxHeight: "40px", overflow: "hidden" }}

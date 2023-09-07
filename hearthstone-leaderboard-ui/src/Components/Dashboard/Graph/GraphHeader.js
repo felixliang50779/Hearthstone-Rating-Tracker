@@ -10,13 +10,13 @@ export function GraphHeader({ fetchResult, setPlayer }) {
             <Text
                 size="lg"
                 weight="bold"
-                color="pink">Player Rating</Text>
+                color="pink">Tracked Player</Text>
             <Button
                 variant="ghost"
                 disabled={true}
                 color="purple"
                 title="Coming Soon!"
-                style={{ marginLeft: "28%" }}>+/- Player</Button>
+                style={{ marginLeft: "26%" }}>+/- Player</Button>
             <Dropdown fetchResult={fetchResult} setPlayer={setPlayer} />
         </div>
     )
