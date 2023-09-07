@@ -15,18 +15,30 @@ const fetchLoop = async () => {
     // Initialize counter to track how many players' records
     // we've updated
     const numPlayers = Object.keys(TrackedPlayers).length;
-    let playersUpdated = 0;
+    let playersUpdated = 0, firstPage;
 
     const date = new Date();
     const pageRequests = [];
 
-    for (let i = 1; i < 9; i++) {
+    for (let i = 1; i > 0; i++) {
         const url = `https://hearthstone.blizzard.com/en-us/api/community/leaderboardsData?region=US&leaderboardId=battlegrounds&page=${i}`;
-        
-        pageRequests.push(axios.get(url));
+
+        if (i === 1) {
+            firstPage = await axios.get(url);
+            pageRequests.push(firstPage);
+        }
+
+        if (i !== 1) {
+            pageRequests.push(axios.get(url));
+        }
+
+        if (i === firstPage.data.leaderboard.pagination.totalPages) {
+            break;
+        }
     }
 
-    // Wait for page requests to resolve concurrently
+
+    // Wait for all page requests to resolve concurrently
     const pages = await Promise.all(pageRequests);
 
     const updatePromises = [];

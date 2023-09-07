@@ -35,8 +35,8 @@ export function Dashboard({ fetchResult, timeDisplay }) {
                         Content={fetchResult[selectPlayer[0]].length ?
                             <Text size="lg" color="white">
                                 {netRatingChange > 0 ? 
-                                <Text size="lg" color="green">+<Text size="lg" color="white">{netRatingChange}</Text></Text>
-                                : <Text size="lg" color="red">-<Text size="lg" color="white">{netRatingChange}</Text></Text>}
+                                <Text size="lg" color="green" weight="bold">+<Text size="lg" color="white">{netRatingChange}</Text></Text>
+                                : <Text size="lg" color="red" weight="bold">-<Text size="lg" color="white">{Math.abs(netRatingChange)}</Text></Text>}
                             </Text>
                             : <Text size="lg" color="white">N/A</Text>} />
                     <Widget
