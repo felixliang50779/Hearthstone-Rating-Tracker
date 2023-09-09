@@ -1,7 +1,10 @@
 import axios from "axios";
+import env from 'dotenv';
 import { DatabaseController } from "./databaseController.js";
 
 const fetchLoop = async () => {
+    env.config();
+
     // Initialize controller for a database at the cluster url we indicate
     const dbController = new DatabaseController(
         process.env.URL, 
@@ -55,6 +58,16 @@ const fetchLoop = async () => {
                             rating: playerData.rating, timeStamp: date}, 
                             "TrackedPlayers", playerData.accountid, "player-records"));
                 }
+                else if (playerRecords.at(-1).rank !== playerData.rank) {
+                    updatePromises.push(dbController.deleteFromDocument(
+                        playerRecords.at(-1), "TrackedPlayers", playerData.accountid, "player-records"));
+                    updatePromises.push(dbController.pushToDocument(
+                        {rank: playerData.rank, rating: playerData.rating, timeStamp: date},
+                        "TrackedPlayers",
+                        playerData.accountid,
+                        "player-records"
+                    ));
+                }
                 playersUpdated += 1;
 
                 // We've checked all the players we're tracking
@@ -74,25 +87,6 @@ const fetchLoop = async () => {
     // and remove any records from > 2 wks ago
     if (updatePromises.length) {
         await Promise.all(updatePromises);
-    }
-
-    const clearedRecords = [];
-
-    for (const playerRecord in TrackedPlayers) {
-        for (const record of TrackedPlayers[playerRecord]) {
-            if (date.getTime() - record.timeStamp.getTime() > 1209600000) {
-                clearedRecords.push(
-                    dbController.deleteFromDocument(
-                        record, "TrackedPlayers", playerRecord, "player-records"));
-            }
-            else {
-                break;
-            }
-        }
-    }
-    
-    if (clearedRecords.length) {
-        await Promise.all(clearedRecords);
     }
 
     dbController.shutdownClient();

@@ -46,15 +46,15 @@ export function Dashboard({ fetchResult, timeDisplay }) {
                                 {fetchResult[selectPlayer[0]].at(-1).rank}
                             </Text> : <Text size="lg" color="white">N/A</Text>} />
                     <Widget
-                        Title="Rank Percentile"
+                        Title="Latest Record"
                         Content={fetchResult[selectPlayer[0]].length ?
                             <Text size="lg" color="white">
-                                Placeholder
+                                {timeDisplay(fetchResult[selectPlayer[0]].at(-1).timeStamp)}
                             </Text> : <Text size="lg" color="white">N/A</Text>} />
                 </div>
                 <div 
                     className="grid grid-cols-[60%_40%] p-4"
-                    style={{ position: "absolute", bottom: 0 }}>
+                    style={{ position: "absolute", minHeight: "673px" }}>
                     <LineGraph fetchResult={fetchResult} selectPlayer={selectPlayer} />
                     <DataTable
                         fetchResult={fetchResult}

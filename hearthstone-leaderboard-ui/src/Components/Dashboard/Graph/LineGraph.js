@@ -39,6 +39,12 @@ export function LineGraph({ fetchResult, selectPlayer }) {
           style: {
             colors: "white"
           },
+          datetimeFormatter: {
+            year: 'yyyy',
+            month: 'MMM \'yy',
+            day: 'dd MMM',
+            hour: 'HH:mm'
+          },
           datetimeUTC: false
         },
         categories: fetchResult[selectedPlayer].map(record => { 
@@ -51,11 +57,17 @@ export function LineGraph({ fetchResult, selectPlayer }) {
             colors: "white"
           }
         }
+      },
+      tooltip: {
+        x: {
+          show: true,
+          format: "M/d/yy, h:mm TT"
+        }
       }
     },
     series: [{
       name: "Rating",
-      data: fetchResult[selectedPlayer].map(record => record.rating),
+      data: fetchResult[selectedPlayer].map(record => record.rating)
     }]
   }
 
