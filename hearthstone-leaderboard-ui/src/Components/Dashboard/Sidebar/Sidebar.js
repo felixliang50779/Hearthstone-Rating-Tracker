@@ -18,7 +18,7 @@ import { Avatar, Text } from 'dracula-ui';
  
 export function DefaultSidebar() {
   return (
-    <Card className="h-[calc(100vh)] w-full max-w-[18rem] p-6" style={{ backgroundColor: "#21222c", alignSelf: "center"}} >
+    <Card className="h-[calc(100vh)] w-full max-w-[18rem] p-6" style={{ backgroundColor: "#21222c" }} >
       <div>
         <Avatar color="white" title="Guest" src={GuestIcon} style={{ marginLeft: "5rem" }}/>
         <div style={{ marginLeft: "5.7rem" }}>
