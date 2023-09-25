@@ -4,7 +4,7 @@ import { CircularProgress } from '@mui/material';
 import { useState, useEffect } from 'react';
 
 // Local stuff
-import { Dashboard } from './Components/Dashboard/Dashboard';
+import { Dashboard } from './Components/Dashboard/Board/Dashboard';
 import styles from './App.module.css';
 
 import 'dracula-ui/styles/dracula-ui.css'

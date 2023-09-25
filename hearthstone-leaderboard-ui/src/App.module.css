@@ -2,3 +2,8 @@
     font-family: "Roboto-Mono";
     src: url(./Assets/Fonts/L0xTDF4xlVMF-BfR8bXMIhJHg45mwgGEFl0_3vrtSM1J-gEPT5Ese6hmHSh0mQ.woff2) format('woff2');
 }
+
+.dashboard-wrapper {
+    height: 100%;
+    width: 100%;
+}

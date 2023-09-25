@@ -15,8 +15,7 @@ export function GraphHeader({ fetchResult, setPlayer }) {
                 variant="ghost"
                 disabled={true}
                 color="purple"
-                title="Coming Soon!"
-                style={{ marginLeft: "26%" }}>+/- Player</Button>
+                title="Coming Soon!">+/- Player</Button>
             <Dropdown fetchResult={fetchResult} setPlayer={setPlayer} />
         </div>
     )

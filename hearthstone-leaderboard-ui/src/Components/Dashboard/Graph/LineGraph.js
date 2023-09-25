@@ -75,25 +75,15 @@ export function LineGraph({ fetchResult, selectPlayer }) {
     <Card
       color="black"
       p="sm"
-      width='2xl'
-      height='lg'
-      style={
-        {textAlign : "center",
-          boxShadow: "none",
-          position: "absolute",
-          bottom: 0,
-          marginLeft: "40%",
-          marginBottom: "30%"
-        }}
-      display="inline-grid">
+      style={{boxShadow: "none"}}>
         <GraphHeader fetchResult={fetchResult} setPlayer={setSelectedPlayer} />
         {fetchResult[selectedPlayer].length ? <Chart
           options = {graphConfig.options}
           series = {graphConfig.series}
           type="line"
-          width="99%"
-          height="78%"
-        /> : <Text style={{ paddingBottom: 58 }}>No records found for this player!</Text>}
+          height="85%"
+          style={{margin: "1em", marginLeft: 0}}
+        /> : <Text>No records found for this player!</Text>}
     </Card>
   )
 }

@@ -1,0 +1,35 @@
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5em;
+    align-items: center;
+    text-align: center;
+    padding: 1em;
+    min-height: 100vh;
+    overflow: auto;
+    background-color:#282a36;
+}
+
+.user {
+    margin-top: 1.5em;
+}
+
+.game-mode {
+    display: grid;
+    margin-left: 1em;
+    grid-template-rows: 1fr;
+    grid-template-columns: 0.3fr 1fr;
+    flex-grow: 1;
+    gap: 0.5em;
+}
+
+img {
+    width: 100%;
+    align-self: center;
+}
+
+@media screen and (max-width: 1000px) {
+    img {
+        display: none;
+    }
+}

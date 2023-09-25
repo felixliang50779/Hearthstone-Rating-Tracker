@@ -5,11 +5,9 @@ export function Widget({ Title, Content }) {
         <Card 
             display="inline-grid"
             color="black"
-            width="xxs"
             p="sm"
-            style={{ boxShadow: "none", textAlign: "center", paddingTop: "15%", paddingBottom: "15%" }}
-            >
-                <Text color="pink" weight="bold" size="md" style={{ opacity: 0.8 }}>{Title}</Text>
+            style={{boxShadow: "none"}}>
+                <Text color="pink" weight="bold" size="md">{Title}</Text>
                 {Content}
         </Card>
     )

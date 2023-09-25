@@ -1,0 +1,29 @@
+.board {
+    display: flex;
+    height: fit-content;
+    column-gap: 0.5em;
+}
+
+.content-container {
+    display: flex;
+    flex-direction: column;
+    margin: 0.4em;
+    row-gap: 0.5em;
+    width: 100%;
+    height: fit-content;
+}
+
+.widget-grid {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 1em;
+}
+
+.visualizer-grid {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 0.5em;
+    flex-grow: 1;
+}

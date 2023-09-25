@@ -51,12 +51,9 @@ export function DataTable({ fetchResult, fromOldest, selectPlayer, timeDisplay }
         <Card
             color="black"
             p="sm"
-            width="md"
-            height="lg"
-            style={{ boxShadow: "none", position: "absolute", bottom: 0, marginBottom: "30%", marginLeft: "2080%" }}>
+            style={{ boxShadow: "none" }}>
             <TableHeader oldestFirst={oldestFirst} setOldestFirst={setOldestFirst} />
             <TableContainer
-                style={{ overflowy: "auto", maxHeight: "24rem", width: "100%", height: "100%" }}
                 sx={{
                     "&::-webkit-scrollbar": {
                         width: 10
@@ -67,7 +64,9 @@ export function DataTable({ fetchResult, fromOldest, selectPlayer, timeDisplay }
                     "&::-webkit-scrollbar-thumb": {
                         backgroundColor: "#44475a",
                         borderRadius: 20
-                    }
+                    },
+                    display: "flex",
+                    flexGrow: 1
                 }}>
                 <Table component="div" style={{ overflow: "auto" }}>
                     <TableRow sx={{ color: "#f8f8f2" }}>
