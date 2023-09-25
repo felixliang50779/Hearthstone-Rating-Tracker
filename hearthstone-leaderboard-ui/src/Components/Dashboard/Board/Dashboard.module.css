@@ -1,6 +1,6 @@
 .board {
     display: flex;
-    height: fit-content;
+    height: 100%;
     column-gap: 0.5em;
 }
 
@@ -10,7 +10,7 @@
     margin: 0.4em;
     row-gap: 0.5em;
     width: 100%;
-    height: fit-content;
+    height: 98.2%;
 }
 
 .widget-grid {

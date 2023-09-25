@@ -81,8 +81,8 @@ export function LineGraph({ fetchResult, selectPlayer }) {
           options = {graphConfig.options}
           series = {graphConfig.series}
           type="line"
-          height="85%"
-          style={{margin: "1em", marginLeft: 0}}
+          height="80%"
+          style={{margin: "1em", marginLeft: "0.5em", marginTop: "2.5em"}}
         /> : <Text>No records found for this player!</Text>}
     </Card>
   )
