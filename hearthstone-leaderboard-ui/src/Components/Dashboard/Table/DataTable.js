@@ -65,8 +65,7 @@ export function DataTable({ fetchResult, fromOldest, selectPlayer, timeDisplay }
                         backgroundColor: "#44475a",
                         borderRadius: 20
                     },
-                    display: "flex",
-                    flexGrow: 1
+                    maxHeight: "65vh"
                 }}>
                 <Table component="div" style={{ overflow: "auto" }}>
                     <TableRow sx={{ color: "#f8f8f2" }}>
