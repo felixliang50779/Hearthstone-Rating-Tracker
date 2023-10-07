@@ -1,4 +1,6 @@
 .data-table {
+    display: flex;
+    flex-direction: column;
     background-color:#1e212a;
     padding: 1em;
     border-radius: 1em;

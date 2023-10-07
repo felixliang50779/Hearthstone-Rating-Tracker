@@ -79,7 +79,7 @@ export function LineGraph({ fetchResult, selectPlayer }) {
           type="line"
           width="100%"
           height="85%"
-          style={{margin: "1em", marginLeft: "0.5em", marginTop: "1.5em"}}
+          style={{margin: "1em", marginLeft: "0.5em", marginTop: "1.5em", flexGrow: 1}}
         /> : <Text>No records found for this player!</Text>}
     </div>
   )

@@ -1,4 +1,5 @@
 .tableHeader {
     display: flex;
     justify-content: space-between;
+    flex-grow: 0.3;
 }
