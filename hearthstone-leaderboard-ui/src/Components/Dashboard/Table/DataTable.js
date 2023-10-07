@@ -8,7 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import { TableContainer } from "@mui/material";
 import { TablePagination } from "@mui/material";
 
-import { Card } from 'dracula-ui';
+import styles from './DataTable.module.css';
 
 
 export function DataTable({ fetchResult, fromOldest, selectPlayer, timeDisplay }) {
@@ -48,10 +48,7 @@ export function DataTable({ fetchResult, fromOldest, selectPlayer, timeDisplay }
     }
 
     return (
-        <Card
-            color="black"
-            p="sm"
-            style={{ boxShadow: "none" }}>
+        <div className={styles['data-table']}>
             <TableHeader oldestFirst={oldestFirst} setOldestFirst={setOldestFirst} />
             <TableContainer
                 sx={{
@@ -65,9 +62,9 @@ export function DataTable({ fetchResult, fromOldest, selectPlayer, timeDisplay }
                         backgroundColor: "#44475a",
                         borderRadius: 20
                     },
-                    maxHeight: "65vh"
+                    maxHeight: "27em"
                 }}>
-                <Table component="div" style={{ overflow: "auto" }}>
+                <Table component="div" >
                     <TableRow sx={{ color: "#f8f8f2" }}>
                         <TableCell sx={{ fontFamily: "Roboto-Mono", fontSize: 14 }}>ID</TableCell>
                         <TableCell sx={{ fontFamily: "Roboto-Mono", fontSize: 14 }}>Rating</TableCell>
@@ -128,6 +125,6 @@ export function DataTable({ fetchResult, fromOldest, selectPlayer, timeDisplay }
                     rowsPerPageOptions={[5, 10, 25, 50]}
                     sx={{ color: "white", fontFamily: "Roboto-Mono", fontSize: 14, maxHeight: "40px", overflow: "hidden" }}
             />
-        </Card>
+        </div>
     );
 }

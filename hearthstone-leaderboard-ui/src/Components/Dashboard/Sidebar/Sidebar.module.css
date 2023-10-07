@@ -1,16 +1,13 @@
 .sidebar {
     display: flex;
     flex-direction: column;
-    gap: 2.5em;
+    gap: 1em;
     align-items: center;
     text-align: center;
     padding: 1em;
-    max-height: 100vh;
     overflow: auto;
     background-color:#282a36;
 }
-
-
 
 .user {
     margin-top: 1.5em;
@@ -26,7 +23,8 @@
 }
 
 img {
-    width: 100%;
+    max-width: 100%;
+    height: auto;
     align-self: center;
 }
 

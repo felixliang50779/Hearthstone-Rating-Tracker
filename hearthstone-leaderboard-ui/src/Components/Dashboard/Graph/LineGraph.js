@@ -2,7 +2,6 @@ import Chart from 'react-apexcharts';
 
 import { GraphHeader } from './GraphHeader';
 
-import { Card } from "dracula-ui";
 import { Text } from "dracula-ui";
 
 import './LineGraph.css';
@@ -72,18 +71,16 @@ export function LineGraph({ fetchResult, selectPlayer }) {
   }
 
   return (
-    <Card
-      color="black"
-      p="sm"
-      style={{boxShadow: "none"}}>
+    <div className='line-graph'>
         <GraphHeader fetchResult={fetchResult} setPlayer={setSelectedPlayer} />
         {fetchResult[selectedPlayer].length ? <Chart
           options = {graphConfig.options}
           series = {graphConfig.series}
           type="line"
-          height="80%"
+          width="100%"
+          height="85%"
           style={{margin: "1em", marginLeft: "0.5em", marginTop: "1.5em"}}
         /> : <Text>No records found for this player!</Text>}
-    </Card>
+    </div>
   )
 }

@@ -5,3 +5,9 @@
 .apexcharts-pan-icon.apexcharts-selected svg {
     stroke: #68e397 !important;
 }
+
+.line-graph {
+    background: #1e212a;
+    padding: 1em;
+    border-radius: 1em;
+}
