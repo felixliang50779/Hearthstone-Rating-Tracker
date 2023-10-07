@@ -6,30 +6,41 @@
     text-align: center;
     padding: 1em;
     overflow: auto;
+    width: 20%;
     background-color:#282a36;
+}
+
+.sidebar-label {
+    font-family: 'Roboto-Mono';
+    color: #ffffff;
+    font-size: 1.1em;
+    margin: 0;
+    margin-top: 1em;
 }
 
 .user {
     margin-top: 1.5em;
 }
 
+.game-modes {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    gap: 0.8em;
+    align-items: center;
+}
+
 .game-mode {
     display: grid;
-    margin-left: 1em;
     grid-template-rows: 1fr;
     grid-template-columns: 0.3fr 1fr;
     flex-grow: 1;
     gap: 0.5em;
+    width: 14em;
 }
 
 img {
-    max-width: 100%;
-    height: auto;
+    width: 3em;
     align-self: center;
-}
-
-@media screen and (max-width: 1000px) {
-    img {
-        display: none;
-    }
 }

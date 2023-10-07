@@ -21,34 +21,36 @@ export function Sidebar() {
           color="white" />
         <Text size='lg' weight="semibold">Guest</Text>
       </div>
-      <Divider style={{ width: "90%"}}/>
-      <div className={styles['game-mode']}>
-        <img src={BattlegroundsIcon} alt="BattlegroundsIcon" loading='lazy' />
-        <Text size='lg' style={{display: "flex", alignItems: "center"}}>Battlegrounds</Text>
-      </div>
-      <div className={styles['game-mode']}>
-        <img src={StandardIcon} alt="StandardIcon" loading='lazy' />
-        <Text size='lg' style={{display: "flex", alignItems: "center"}}>Standard</Text>
-      </div>
-      <div className={styles['game-mode']}>
-        <img src={ClassicIcon} alt="ClassicIcon" loading='lazy' />
-        <Text size='lg' style={{display: "flex", alignItems: "center"}}>Classic</Text>
-      </div>
-      <div className={styles['game-mode']}>
-        <img src={MercenariesIcon} alt="MercenariesIcon" loading='lazy' />
-        <Text size='lg' style={{display: "flex", alignItems: "center"}}>Mercenaries</Text>
-      </div>
-      <div className={styles['game-mode']}>
-        <img src={ArenaIcon} alt="ArenaIcon" loading='lazy' />
-        <Text size='lg' style={{display: "flex", alignItems: "center"}}>Arena</Text>
-      </div>
-      <div className={styles['game-mode']}>
-        <img src={TwistIcon} alt="TwistIcon" loading='lazy' />
-        <Text size='lg' style={{display: "flex", alignItems: "center"}}>Twist</Text>
-      </div>
-      <div className={styles['game-mode']}>
-        <img src={WildIcon} alt="WildIcon" loading='lazy' />
-        <Text size='lg' style={{display: "flex", alignItems: "center"}}>Wild</Text>
+      <Divider style={{ width: "95%"}}/>
+      <div className={styles['game-modes']}>
+        <div className={styles['game-mode']}>
+          <img src={BattlegroundsIcon} alt="BattlegroundsIcon" loading='lazy' />
+          <Text size='lg' style={{display: "flex", alignItems: "center"}}>Battlegrounds</Text>
+        </div>
+        <div className={styles['game-mode']}>
+          <img src={StandardIcon} alt="StandardIcon" loading='lazy' />
+          <Text size='lg' style={{display: "flex", alignItems: "center"}}>Standard</Text>
+        </div>
+        <div className={styles['game-mode']}>
+          <img src={ClassicIcon} alt="ClassicIcon" loading='lazy' />
+          <Text size='lg' style={{display: "flex", alignItems: "center"}}>Classic</Text>
+        </div>
+        <div className={styles['game-mode']}>
+          <img src={MercenariesIcon} alt="MercenariesIcon" loading='lazy' />
+          <Text size='lg' style={{display: "flex", alignItems: "center"}}>Mercenaries</Text>
+        </div>
+        <div className={styles['game-mode']}>
+          <img src={ArenaIcon} alt="ArenaIcon" loading='lazy' />
+          <Text size='lg' style={{display: "flex", alignItems: "center"}}>Arena</Text>
+        </div>
+        <div className={styles['game-mode']}>
+          <img src={TwistIcon} alt="TwistIcon" loading='lazy' />
+          <Text size='lg' style={{display: "flex", alignItems: "center"}}>Twist</Text>
+        </div>
+        <div className={styles['game-mode']}>
+          <img src={WildIcon} alt="WildIcon" loading='lazy' />
+          <Text size='lg' style={{display: "flex", alignItems: "center"}}>Wild</Text>
+        </div>
       </div>
     </div>
   );

@@ -1,14 +1,13 @@
 .board {
     display: flex;
     height: 100%;
-    column-gap: 0.2em;
 }
 
 .content-container {
     display: flex;
     flex-direction: column;
     margin: 0.4em;
-    row-gap: 0.5em;
+    gap: 0.5em;
     width: 100%;
     overflow: auto;
 }
