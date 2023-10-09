@@ -1,6 +1,5 @@
 // External stuff
 import axios from 'axios';
-import { CircularProgress } from '@mui/material';
 import { useState, useEffect } from 'react';
 
 // Local stuff
@@ -41,9 +40,11 @@ export default function App() {
   
   if (!fetchResult){
     return (
-      <div>
-        <p>Loading...</p>
-        <CircularProgress />
+      <div className={styles['bouncing-loader']}>
+        Loading
+        <div />
+        <div />
+        <div />
       </div>
     )
   }
