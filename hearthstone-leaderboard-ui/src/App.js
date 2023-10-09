@@ -50,7 +50,7 @@ export default function App() {
         A Network Error Occurred - Please Check Your Internet Connection And Refresh the Page
       </div> :
       <div className={styles['error-msg']}>
-        An Unknown Error Occurred - The Tracker API May Be Down
+        An Unknown Error Occurred - The Fetch API May Be Down
       </div>
     );
   }
