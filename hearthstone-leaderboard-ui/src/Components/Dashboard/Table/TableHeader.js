@@ -16,15 +16,16 @@ export function TableHeader({ oldestFirst, setOldestFirst }) {
         size="lg"
         weight="bold"
         color="pink">Player Records</Text>
-      <Switch
-        color="purple"
-        id="toggleOrder"
-        defaultChecked={oldestFirst}
-        style={{ marginLeft: "45%", paddingRight: "9%" }}
-        onChange={handleSwitchChange} />
-      <label htmlFor="toggleOrder" style={{ fontFamily: "Roboto-Mono", color: "white", paddingLeft: "1%" }}>
-        Oldest First
-      </label>
+      <div>
+        <Switch
+          color="purple"
+          id="toggleOrder"
+          defaultChecked={oldestFirst}
+          onChange={handleSwitchChange} />
+        <label className={styles['switch-label']} htmlFor="toggleOrder">
+          Oldest First
+        </label>
+      </div>
     </div>
   );
 }

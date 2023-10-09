@@ -11,12 +11,14 @@ export function GraphHeader({ fetchResult, setPlayer }) {
                 size="lg"
                 weight="bold"
                 color="pink">Tracked Player</Text>
-            <Button
-                variant="ghost"
-                disabled={true}
-                color="purple"
-                title="Coming Soon!">+/- Player</Button>
-            <Dropdown fetchResult={fetchResult} setPlayer={setPlayer} />
+            <div className={styles['header-buttons']}>
+                <Button
+                    variant="ghost"
+                    disabled={true}
+                    color="purple"
+                    title="Coming Soon!">+/- Player</Button>
+                <Dropdown fetchResult={fetchResult} setPlayer={setPlayer} />
+            </div>
         </div>
     )
 }
