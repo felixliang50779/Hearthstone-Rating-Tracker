@@ -1,6 +1,6 @@
 // External stuff
 import axios from 'axios';
-import { useState, useEffect } from 'react';
+import { useState, useEffect} from 'react';
 
 // Local stuff
 import { Dashboard } from './Components/Dashboard/Board/Dashboard';
@@ -10,6 +10,7 @@ import 'dracula-ui/styles/dracula-ui.css'
 
 export default function App() {
   const [fetchResult, setFetchResult] = useState(null);
+  const [connectionError, setConnectionError] = useState(null);
   
   function timeDisplay(time) {
     const dateObject = new Date(time);
@@ -33,22 +34,39 @@ export default function App() {
   }
 
   useEffect(() => {
-   axios.get(
+    axios.get(
     "https://leaderboard-tracking-express.vercel.app/").then(
-      result => setFetchResult(result.data));
+      result => setFetchResult(result.data),
+      error => {
+        console.log(error);
+        setConnectionError(error);
+      });
   }, []);
-  
-  if (!fetchResult){
+
+  if ((!fetchResult) && (connectionError)) {
+    return (
+      connectionError.code === "ERR_NETWORK" ?
+      <div className={styles['error-msg']}>
+        A Network Error Occurred - Please Check Your Internet Connection And Refresh the Page
+      </div> :
+      <div className={styles['error-msg']}>
+        An Unknown Error Occurred - The Tracker API May Be Down
+      </div>
+    );
+  }
+
+  if ((!fetchResult) && (!connectionError)) {
     return (
       <div className={styles['bouncing-loader']}>
         Loading
-        <div />
+        <div className={styles['first-dot']} />
         <div />
         <div />
       </div>
-    )
+    );
   }
-  
+
+
 
   return (
     <div className={styles['dashboard-wrapper']}>
