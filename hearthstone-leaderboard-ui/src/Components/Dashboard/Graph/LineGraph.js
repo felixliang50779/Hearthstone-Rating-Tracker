@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react';
+
 import Chart from 'react-apexcharts';
 
 import { GraphHeader } from './GraphHeader';
@@ -8,6 +10,8 @@ import './LineGraph.css';
 
 
 export function LineGraph({ fetchResult, selectPlayer }) {
+  const [,setValue] = useState(0); // integer state
+
   const [selectedPlayer, setSelectedPlayer] = selectPlayer;
 
   const graphConfig = {
@@ -70,6 +74,10 @@ export function LineGraph({ fetchResult, selectPlayer }) {
     }]
   }
 
+  useEffect(() => {
+    setValue(value => value + 1); // update state to force render
+  }, []);
+
   return (
     <div className='line-graph'>
         <GraphHeader fetchResult={fetchResult} setPlayer={setSelectedPlayer} />
@@ -77,9 +85,8 @@ export function LineGraph({ fetchResult, selectPlayer }) {
           options = {graphConfig.options}
           series = {graphConfig.series}
           type="line"
-          width="100%"
           height="85%"
-          style={{margin: "1em", marginLeft: "0.5em", marginTop: "1.5em", flexGrow: 1}}
+          style={{margin: "1em", marginLeft: "-0.1em", marginTop: "1em"}}
         /> : <Text>No records found for this player!</Text>}
     </div>
   )

@@ -1,11 +1,15 @@
 .tableHeader {
     display: flex;
     justify-content: space-between;
-    flex-grow: 0.3;
 }
 
 .switch-label {
     font-family: "Roboto-Mono";
     font-size: 2vw;
     color: #ffffff;
+}
+
+.header-switch {
+    display: flex;
+    gap: 0.3vw;
 }

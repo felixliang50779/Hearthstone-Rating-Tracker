@@ -1,6 +1,5 @@
 import express from "express";
 import cors from 'cors';
-import { DatabaseController } from './databaseController.js';
 
 import { fetchLoop } from "./fetchLoop.js";
 

@@ -43,7 +43,7 @@ export function Dashboard({ fetchResult, timeDisplay }) {
                             Title="Current Rank"
                             Content={fetchResult[selectPlayer[0]].length ?
                                 <Text size="lg" color="white">
-                                    {fetchResult[selectPlayer[0]].at(-1).rank}
+                                    {`${fetchResult[selectPlayer[0]].at(-1).rank} (NA)`}
                                 </Text> : <Text size="lg" color="white">N/A</Text>} />
                         <Widget
                             Title="Latest Record"

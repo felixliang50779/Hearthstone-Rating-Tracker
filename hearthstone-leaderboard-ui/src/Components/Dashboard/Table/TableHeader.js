@@ -16,7 +16,7 @@ export function TableHeader({ oldestFirst, setOldestFirst }) {
         size="lg"
         weight="bold"
         color="pink">Player Records</Text>
-      <div>
+      <div className={styles['header-switch']}>
         <Switch
           color="purple"
           id="toggleOrder"

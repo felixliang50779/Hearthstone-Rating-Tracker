@@ -1,19 +1,20 @@
 import { useState, useEffect } from "react";
 
-import { TableHeader } from "./TableHeader";
+import { TableHeader } from "./TableHeader"; 
 
-import Table from "@mui/material/Table";
-import TableCell from "@mui/material/TableCell";
-import TableRow from "@mui/material/TableRow";
-import { TableContainer } from "@mui/material";
-import { TablePagination } from "@mui/material";
+import { DataGrid, 
+        useGridApiContext,
+        useGridSelector,
+        gridPaginationModelSelector,
+        gridPageCountSelector } from "@mui/x-data-grid";
+
+import { Pagination } from "@mui/material";
 
 import styles from './DataTable.module.css';
 
 
 export function DataTable({ fetchResult, fromOldest, selectPlayer, timeDisplay }) {
-    const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(5);
+    const [,setPage] = useState(0);
     const [selectedPlayer,] = selectPlayer;
     const [oldestFirst, setOldestFirst] = fromOldest;
 
@@ -26,106 +27,122 @@ export function DataTable({ fetchResult, fromOldest, selectPlayer, timeDisplay }
         processedData = [...fetchResult[selectedPlayer]].sort((a, b) => (a.timeStamp > b.timeStamp) ? 1 : -1);
     }
 
+    const rows = processedData.map((record, index) => {
+        return {id: index + 1,
+                rating: record.rating,
+                rank: record.rank,
+                ratingChange: "TEST",
+                timeStamp: timeDisplay(record.timeStamp)}
+    })
+
+    const columns = 
+        [
+            {
+                field: "id",
+                headerName: "ID",
+                flex: 0.4
+            },
+            {
+                field: "rating",
+                headerName: "Rating",
+                flex: 0.8
+            },
+            {
+                field: "rank",
+                headerName: "Rank",
+                flex: 0.7
+            },
+            {
+                field: "ratingChange",
+                headerName: "Rating Change",
+                flex: 0.8
+            },
+            {
+                field: "timeStamp",
+                headerName: "Timestamp",
+                flex: 1.2
+            }
+        ]
+
     useEffect(() => {
         setPage(0);
     }, [selectedPlayer]);
 
-    const handlePageChange = (event, newPage) => {
-        setPage(newPage);
-    }
-
-    const handleChangeRowsPerPage = event => {
-        setRowsPerPage(parseInt(event.target.value, 10));
-        setPage(0);
-    }
-    
-    let subtract;
-    if (page===0) {
-        subtract = 0;
-    }
-    else {
-        subtract = 1;
+    function CustomPagination() {
+        const apiRef = useGridApiContext();
+        const paginationModel = useGridSelector(apiRef, gridPaginationModelSelector);
+        const pageCount = useGridSelector(apiRef, gridPageCountSelector);
+      
+        return (
+          <Pagination
+            count={pageCount}
+            page={paginationModel.page + 1}
+            onChange={(event, value) => apiRef.current.setPage(value - 1)}
+          />
+        );
     }
 
     return (
         <div className={styles['data-table']}>
             <TableHeader oldestFirst={oldestFirst} setOldestFirst={setOldestFirst} />
-            <TableContainer
+            <DataGrid
+                rows={rows}
+                rowHeight={75}
+                columns={columns}
+                disableRowSelectionOnClick={true}
+                disableColumnMenu={true}
+                style={{
+                    borderStyle: "none",
+                    fontFamily: "Roboto-Mono",
+                    fontSize: "0.93em",
+                    color: "white",
+                    marginTop: "0.3em"
+                }}
                 sx={{
-                    "&::-webkit-scrollbar": {
+                    marginLeft: "0.2em",
+                    "& .MuiDataGrid-columnHeaderTitle": {
+                        whiteSpace: "normal",
+                        lineHeight: "normal"
+                    },
+                    "& .MuiDataGrid-cell": {
+                        whiteSpace: "normal !important",
+                        wordWrap: "break-word !important",
+                        "&:focus-within, &:focus": {
+                            outline: "none"
+                        }
+                    },
+                    '& .MuiDataGrid-virtualScroller::-webkit-scrollbar': {
                         width: 10
                     },
-                    "&::-webkit-scrollbar-track": {
-                        backgroundColor: "#282a36"
+                    '& .MuiDataGrid-virtualScroller::-webkit-scrollbar-track': {
+                        backgroundColor: "#282a36",
+                        marginTop: "0.5vh"
                     },
-                    "&::-webkit-scrollbar-thumb": {
+                    '& .MuiDataGrid-virtualScroller::-webkit-scrollbar-thumb': {
                         backgroundColor: "#44475a",
                         borderRadius: 20
                     },
-                    maxHeight: "27rem",
-                    flexGrow: 1
-                }}>
-                <Table component="div" >
-                    <TableRow sx={{ color: "#f8f8f2" }}>
-                        <TableCell sx={{ fontFamily: "Roboto-Mono", fontSize: 14 }}>ID</TableCell>
-                        <TableCell sx={{ fontFamily: "Roboto-Mono", fontSize: 14 }}>Rating</TableCell>
-                        <TableCell sx={{ fontFamily: "Roboto-Mono", fontSize: 14 }}>Rank</TableCell>
-                        <TableCell sx={{ fontFamily: "Roboto-Mono", fontSize: 14 }}>Rating Change</TableCell>
-                        <TableCell sx={{ fontFamily: "Roboto-Mono", fontSize: 14 }}>Timestamp</TableCell>
-                    </TableRow>
-                    {processedData.slice(page * rowsPerPage-subtract, page * rowsPerPage + rowsPerPage).map((result, index) => {
-                        let previousResult
-                        if (index !== 0) { 
-                            previousResult = processedData[index + page * rowsPerPage-subtract- 1];
+                    '& .MuiDataGrid-virtualScroller::-webkit-scrollbar-thumb:hover': {
+                        background: '#555',
+                    },
+                    "& .MuiDataGrid-footerContainer": {
+                        border: "none"
+                    },
+                    "& .MuiPaginationItem-root": {
+                        color: "#f8f8f2",
+                        "&.Mui-selected": {
+                            background: "#f8f8f2",
+                            color: "#282a36",
+                            "&:hover": {
+                                background: "#282a36",
+                                color: "#f8f8f2"
+                            }
                         }
-                        else {
-                            previousResult = result;
-                        }
-                        
-                        let ratingDifference = result.rating - previousResult.rating;
-                        if (ratingDifference === 0){
-                            ratingDifference= "N/A";
-                        }
-                        if (index === 0 && page !== 0){
-                            return null
-                        }
-                        return (
-                            <TableRow key={index} sx={{ color: "#f8f8f2" }}>
-                                <TableCell
-                                    sx={{ fontFamily: "Roboto-Mono", fontSize: 14 }}>
-                                        {index + 1 + page * rowsPerPage-subtract}
-                                </TableCell>
-                                <TableCell
-                                    sx={{ fontFamily: "Roboto-Mono", fontSize: 14 }}>
-                                        {result.rating}
-                                </TableCell>
-                                <TableCell
-                                    sx={{ fontFamily: "Roboto-Mono", fontSize: 14 }}>
-                                        {result.rank}
-                                </TableCell>
-                                <TableCell
-                                    sx={{ fontFamily: "Roboto-Mono", fontSize: 14 }}>
-                                        {ratingDifference}
-                                </TableCell>
-                                <TableCell
-                                    sx={{ fontFamily: "Roboto-Mono", fontSize: 14 }}>
-                                        {timeDisplay(result.timeStamp)}
-                                </TableCell>
-                            </TableRow>
-                        )
-                    })}
-                </Table>
-            </TableContainer>
-            <TablePagination
-                    component="div"
-                    onPageChange={handlePageChange}
-                    onRowsPerPageChange={handleChangeRowsPerPage}
-                    page={page}
-                    count={processedData.length}
-                    rowsPerPage={rowsPerPage}
-                    rowsPerPageOptions={[5, 10, 25, 50]}
-                    sx={{ color: "white", fontFamily: "Roboto-Mono", fontSize: 14, maxHeight: "40px", overflow: "hidden" }}
-            />
+                    }
+                }}
+                slots={{
+                    pagination: CustomPagination
+                }} />
         </div>
     );
 }
