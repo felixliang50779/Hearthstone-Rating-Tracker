@@ -97,7 +97,7 @@ export function DataTable({ fetchResult, fromOldest, selectPlayer, timeDisplay }
                     fontSize: "0.93em",
                     color: "white",
                     marginTop: "0.3em",
-                    maxHeight: "100vh",
+                    maxHeight: "70vh",
                     overflow: "auto"
                 }}
                 sx={{
