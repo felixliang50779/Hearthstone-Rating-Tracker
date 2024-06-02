@@ -28,10 +28,16 @@ export function DataTable({ fetchResult, fromOldest, selectPlayer, timeDisplay }
     }
 
     const rows = processedData.map((record, index) => {
+        let processedRatingChange = `${record.ratingChange}`;
+
+        if ((record.ratingChange !== 'N/A') && (record.ratingChange > 0)) {
+            processedRatingChange = `+${record.ratingChange}`;
+        } 
+
         return {id: index + 1,
                 rating: record.rating,
                 rank: record.rank,
-                ratingChange: "TEST",
+                ratingChange: processedRatingChange,
                 timeStamp: timeDisplay(record.timeStamp)}
     })
 
@@ -97,7 +103,7 @@ export function DataTable({ fetchResult, fromOldest, selectPlayer, timeDisplay }
                     fontSize: "0.93em",
                     color: "white",
                     marginTop: "0.3em",
-                    maxHeight: "70vh",
+                    maxHeight: "72vh",
                     overflow: "auto"
                 }}
                 sx={{
