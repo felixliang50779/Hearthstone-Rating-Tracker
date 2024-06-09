@@ -1,10 +1,14 @@
+// External stuff
 import { Dropdown } from "../Dropdown/Dropdown";
 import { Button } from "dracula-ui";
-import styles from './GraphHeader.module.css';
-
 import { Text } from "dracula-ui";
 
-export function GraphHeader({ fetchResult, setPlayer }) {
+// Internal stuff
+import { Props } from "../Dropdown/Dropdown";
+import styles from './GraphHeader.module.css';
+
+
+export function GraphHeader({ fetchResult, setPlayer }: Props) {
     return (
         <div className={styles.graphHeader}>
             <Text

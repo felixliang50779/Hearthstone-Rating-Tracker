@@ -1,9 +1,16 @@
+// External stuff
 import Box from '@mui/material/Box';
 import { Select } from 'dracula-ui';
+import { ChangeEvent } from 'react';
 
-export function Dropdown({ fetchResult, setPlayer }) {
+export interface Props {
+    fetchResult: any,
+    setPlayer: Function
+}
 
-    const handleDropdownChange = event => {
+export function Dropdown({ fetchResult, setPlayer }: Props) {
+
+    const handleDropdownChange = (event: ChangeEvent<HTMLSelectElement>) => {
         setPlayer(event.target.value);
     }
 

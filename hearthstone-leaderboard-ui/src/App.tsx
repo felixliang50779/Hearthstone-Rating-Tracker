@@ -12,7 +12,7 @@ export default function App() {
   const [fetchResult, setFetchResult] = useState(null);
   const [connectionError, setConnectionError] = useState(null);
   
-  function timeDisplay(time) {
+  function timeDisplay(time: string) {
     const dateObject = new Date(time);
 
     const formattedTime = dateObject.toLocaleTimeString('en-US', {
@@ -45,7 +45,7 @@ export default function App() {
 
   if ((!fetchResult) && (connectionError)) {
     return (
-      connectionError.code === "ERR_NETWORK" ?
+      connectionError['code'] === "ERR_NETWORK" ?
       <div className={styles['error-msg']}>
         A Network Error Occurred - Please Check Your Internet Connection And Refresh the Page
       </div> :
