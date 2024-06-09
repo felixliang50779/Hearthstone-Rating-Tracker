@@ -1,9 +1,10 @@
 import { Card, Text } from "dracula-ui"
+import { ReactElement } from "react"
 
 
 interface Props {
     Title: string,
-    Content: string
+    Content: ReactElement
 }
 
 export function Widget({ Title, Content }: Props) {
