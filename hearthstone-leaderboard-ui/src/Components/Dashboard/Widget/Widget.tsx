@@ -1,6 +1,12 @@
 import { Card, Text } from "dracula-ui"
 
-export function Widget({ Title, Content }) {
+
+interface Props {
+    Title: string,
+    Content: string
+}
+
+export function Widget({ Title, Content }: Props) {
     return (
         <Card 
             display="inline-grid"

@@ -3,9 +3,15 @@ import { Switch } from "dracula-ui";
 
 import styles from './TableHeader.module.css';
 
-export function TableHeader({ oldestFirst, setOldestFirst }) {
+
+interface Props {
+  oldestFirst: boolean,
+  setOldestFirst: Function
+}
+
+export function TableHeader({ oldestFirst, setOldestFirst }: Props) {
   const handleSwitchChange = () => {
-    setOldestFirst(prevState => {
+    setOldestFirst((prevState: boolean) => {
       return !prevState;
     })
   }

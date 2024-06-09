@@ -13,7 +13,14 @@ import { Pagination } from "@mui/material";
 import styles from './DataTable.module.css';
 
 
-export function DataTable({ fetchResult, fromOldest, selectPlayer, timeDisplay }) {
+interface Props {
+    fetchResult: any,
+    fromOldest: any,
+    selectPlayer: any,
+    timeDisplay: Function
+}
+
+export function DataTable({ fetchResult, fromOldest, selectPlayer, timeDisplay }: Props) {
     const [,setPage] = useState(0);
     const [selectedPlayer,] = selectPlayer;
     const [oldestFirst, setOldestFirst] = fromOldest;
