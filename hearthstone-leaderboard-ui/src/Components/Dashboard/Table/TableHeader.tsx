@@ -6,7 +6,7 @@ import styles from './TableHeader.module.css';
 
 interface Props {
   oldestFirst: boolean,
-  setOldestFirst: Function
+  setOldestFirst: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export function TableHeader({ oldestFirst, setOldestFirst }: Props) {

@@ -7,28 +7,28 @@ import { Sidebar } from "../Sidebar/Sidebar";
 
 import { Text } from "dracula-ui";
 
+import { FetchResult } from "../../../App";
+
 import styles from "./Dashboard.module.css"
 
 
 interface Props {
-    fetchResult: any,
+    fetchResult: FetchResult,
     timeDisplay: Function
 }
 
 export function Dashboard({ fetchResult, timeDisplay }: Props) {
     const fromOldest = useState(false);
-    const selectPlayer = useState(Object.keys(fetchResult).at(0));
-
-    console.log(typeof(selectPlayer[1]))
+    const selectPlayer = useState(Object.keys(fetchResult).at(0) as string);
 
     let netRatingChange = null;
 
-    const selectedPlayerName = selectPlayer[0] as string;
+    console.log(typeof(selectPlayer));
 
 
-    if (fetchResult[selectedPlayerName].length) {
-        netRatingChange = fetchResult[selectedPlayerName].at(-1).rating -
-        fetchResult[selectedPlayerName].at(0).rating;
+    if (fetchResult[selectPlayer[0]].length) {
+        netRatingChange = fetchResult[selectPlayer[0]].at(-1).rating -
+        fetchResult[selectPlayer[0]].at(0).rating;
     }
 
     return (
@@ -38,12 +38,12 @@ export function Dashboard({ fetchResult, timeDisplay }: Props) {
                 <div className={styles["widget-grid"]}>
                     <Widget
                             Title="Current Rating"
-                            Content={fetchResult[selectedPlayerName].length ? 
-                                <Text size="lg" color="white">{fetchResult[selectedPlayerName].at(-1).rating}</Text> : 
+                            Content={fetchResult[selectPlayer[0]].length ? 
+                                <Text size="lg" color="white">{fetchResult[selectPlayer[0]].at(-1).rating}</Text> : 
                                 <Text size="lg" color="white">N/A</Text>} />
                         <Widget
                             Title="Past Week"
-                            Content={fetchResult[selectedPlayerName].length ?
+                            Content={fetchResult[selectPlayer[0]].length ?
                                 <Text size="lg" color="white">
                                     {netRatingChange! >= 0 ? 
                                     <Text size="lg" color="green" weight="bold">+<Text size="lg" color="white">{netRatingChange}</Text></Text>
@@ -52,15 +52,15 @@ export function Dashboard({ fetchResult, timeDisplay }: Props) {
                                 : <Text size="lg" color="white">N/A</Text>} />
                         <Widget
                             Title="Current Rank"
-                            Content={fetchResult[selectedPlayerName].length ?
+                            Content={fetchResult[selectPlayer[0]].length ?
                                 <Text size="lg" color="white">
-                                    {`${fetchResult[selectedPlayerName].at(-1).rank} (NA)`}
+                                    {`${fetchResult[selectPlayer[0]].at(-1).rank} (NA)`}
                                 </Text> : <Text size="lg" color="white">N/A</Text>} />
                         <Widget
                             Title="Latest Record"
-                            Content={fetchResult[selectedPlayerName].length ?
+                            Content={fetchResult[selectPlayer[0]].length ?
                                 <Text size="lg" color="white">
-                                    {timeDisplay(fetchResult[selectedPlayerName].at(-1).timeStamp)}
+                                    {timeDisplay(fetchResult[selectPlayer[0]].at(-1).timeStamp)}
                                 </Text> : <Text size="lg" color="white">N/A</Text>} />
                 </div>
                 <div className={styles["visualizer-grid"]}>

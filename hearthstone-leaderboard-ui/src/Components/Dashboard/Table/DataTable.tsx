@@ -1,22 +1,22 @@
-import { useState, useEffect } from "react";
-
-import { TableHeader } from "./TableHeader"; 
-
+// External stuff
+import React, { useState, useEffect } from "react";
 import { DataGrid, 
         useGridApiContext,
         useGridSelector,
         gridPaginationModelSelector,
         gridPageCountSelector } from "@mui/x-data-grid";
-
 import { Pagination } from "@mui/material";
 
+// Internal stuff
+import { FetchResult } from "../../../App";
+import { TableHeader } from "./TableHeader"; 
 import styles from './DataTable.module.css';
 
 
 interface Props {
-    fetchResult: any,
-    fromOldest: any,
-    selectPlayer: any,
+    fetchResult: FetchResult,
+    fromOldest: [boolean, React.Dispatch<React.SetStateAction<boolean>>],
+    selectPlayer: [string, React.Dispatch<React.SetStateAction<string>>],
     timeDisplay: Function
 }
 

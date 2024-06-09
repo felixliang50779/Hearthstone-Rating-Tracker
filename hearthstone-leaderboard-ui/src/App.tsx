@@ -8,8 +8,13 @@ import styles from './App.module.css';
 
 import 'dracula-ui/styles/dracula-ui.css'
 
+
+export interface FetchResult {
+  [key: string]: any[]
+}
+
 export default function App() {
-  const [fetchResult, setFetchResult] = useState(null);
+  const [fetchResult, setFetchResult] = useState({} as FetchResult);
   const [connectionError, setConnectionError] = useState(null);
   
   function timeDisplay(time: string) {
@@ -43,7 +48,7 @@ export default function App() {
       });
   }, []);
 
-  if ((!fetchResult) && (connectionError)) {
+  if ((Object.keys(fetchResult).length === 0) && (connectionError)) {
     return (
       connectionError['code'] === "ERR_NETWORK" ?
       <div className={styles['error-msg']}>
@@ -55,7 +60,7 @@ export default function App() {
     );
   }
 
-  if ((!fetchResult) && (!connectionError)) {
+  if ((Object.keys(fetchResult).length === 0) && (!connectionError)) {
     return (
       <div className={styles['bouncing-loader']}>
         Loading

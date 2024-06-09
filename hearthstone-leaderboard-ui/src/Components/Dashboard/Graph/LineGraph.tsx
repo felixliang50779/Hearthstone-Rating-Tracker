@@ -5,13 +5,14 @@ import { ApexOptions } from 'apexcharts';
 import { Text } from "dracula-ui";
 
 // Internal stuff
+import { FetchResult } from '../../../App';
 import { GraphHeader } from './GraphHeader';
 import './LineGraph.css';
 
 
 interface Props {
-  fetchResult: any,
-  selectPlayer: any
+  fetchResult: FetchResult,
+  selectPlayer: [string, React.Dispatch<React.SetStateAction<string>>]
 }
 
 export function LineGraph({ fetchResult, selectPlayer }: Props) {
