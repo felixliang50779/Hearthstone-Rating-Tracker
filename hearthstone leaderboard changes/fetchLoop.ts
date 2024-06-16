@@ -1,19 +1,19 @@
 import axios from "axios";
 import env from 'dotenv';
-import { DatabaseController } from "./databaseController.js";
+import { DatabaseController } from "./databaseController";
 
 const fetchLoop = async () => {
     env.config();
 
     // Initialize controller for a database at the cluster url we indicate
     const dbController = new DatabaseController(
-        process.env.URL, 
+        process.env.URL as string, 
         "hearthstone-battlegrounds-records");
 
     // Get most up-to-date player records
     const TrackedPlayersDocument = await dbController.getDocument(
         "player-records", "TrackedPlayers");
-    const TrackedPlayers = TrackedPlayersDocument.players;
+    const TrackedPlayers = TrackedPlayersDocument?.players;
 
     // Initialize counter to track how many players' records
     // we've updated
@@ -35,7 +35,7 @@ const fetchLoop = async () => {
             pageRequests.push(axios.get(url));
         }
 
-        if (i === firstPage.data.leaderboard.pagination.totalPages) {
+        if (i === firstPage?.data.leaderboard.pagination.totalPages) {
             break;
         }
     }

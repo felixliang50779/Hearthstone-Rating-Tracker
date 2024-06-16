@@ -1,10 +1,11 @@
 import express from "express";
 import cors from 'cors';
 
-import { fetchLoop } from "./fetchLoop.js";
+import { fetchLoop } from "./fetchLoop";
+
 
 // Global variables
-let app;
+let app: express.Express | null = null;
 
 function initializeServer() {
     const PORT = process.env.PORT || 5000;

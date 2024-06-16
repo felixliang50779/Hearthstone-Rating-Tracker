@@ -1,9 +1,15 @@
-import { MongoClient } from 'mongodb';
+import { Db, MongoClient } from 'mongodb';
+
+
+interface DatabaseController {
+    client: MongoClient
+    database: Db
+}
 
 const errorMsg = "Error occurred while attempting to";
 
 class DatabaseController {
-    constructor(url, database) {
+    constructor(url: string, database: string) {
         this.client = new MongoClient(url);
         this.database = this.client.db(database);
     }
@@ -27,15 +33,15 @@ class DatabaseController {
     }
 
     // Gets a single document from a specific collection
-    async getDocument(collection, documentID) {
+    async getDocument(collection: string, documentID: string) {
         const myCollection = this.database.collection(collection);
         
-        return myCollection.findOne({_id: documentID});
+        return myCollection.findOne({_id: documentID} as object);
     }
 
-    async pushToDocument(value, documentID, arrayName, collection) {
+    async pushToDocument(value: object, documentID: string, arrayName: string, collection: string) {
         await this.database.collection(collection).updateOne(
-            { "_id": documentID },
+            { "_id": documentID } as object,
             { "$push":
                 {
                     [`players.${arrayName}`]: value
@@ -44,9 +50,9 @@ class DatabaseController {
         );
     }
 
-    async deleteFromDocument(value, documentID, arrayName, collection) {
+    async deleteFromDocument(value: string, documentID: string, arrayName: string, collection: string) {
         await this.database.collection(collection).updateOne(
-            { "_id": documentID },
+            { "_id": documentID } as object,
             { "$pull":
                 {
                     [`players.${arrayName}`]: value
